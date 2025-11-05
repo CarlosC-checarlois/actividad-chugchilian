@@ -1,0 +1,259 @@
+{% extends 'cabezal.html' %}
+{% block etiqueta_estatica %}
+    {% load static %}
+{% endblock %}
+{% block titulo_pagina %}
+    <title>CHUCHILIAN - APRENDE</title>
+{% endblock %}
+{% block css_archivos %}
+<link rel="stylesheet" href="{% static 'general/css/inicio/index.css' %}">
+{% endblock %}
+{% block contenido_pagina %}
+    <!-- SECCIÓN INICIO -->
+    <!-- SECCIÓN INICIO -->
+    <!-- SECCIÓN INICIO -->
+    <!-- SECCIÓN INICIO -->
+    <section id="home" class="home_inicio_estilo text-center text-white position-relative overflow-hidden">
+        <!-- Imagen de fondo explícita -->
+        <img src="{% static 'general/images/inicio/imagen_inicio_portada.png' %}"
+             alt="Paisaje natural de Chugchilian"
+             class="position-absolute top-0 start-0 w-100 h-100 object-fit-cover imagen_home_inicio_estilo">
+
+        <!-- Contenido centrado -->
+        <div class="container d-flex flex-column justify-content-center align-items-center text-center contenido_home_inicio_estilo">
+            <h1 class="fw-bold mb-3 titulo_home_inicio_estilo">Educación y Cultura Viva</h1>
+            <p class="lead mb-4 texto_home_inicio_estilo">
+                Promovemos el aprendizaje, la unión comunitaria y la preservación de nuestras raíces
+                en las comunidades indígenas hispanoamericanas.
+            </p>
+            <a href="#about" class="btn btn-warning btn-lg fw-semibold boton_home_inicio_estilo">Conoce Nuestra
+                Historia</a>
+        </div>
+    </section>
+
+    <!-- =======================
+         SECCIÓN EDUCACIÓN
+    ======================= -->
+    <section id="education" class="education_inicio_estilo py-5 position-relative overflow-hidden">
+        <div class="container text-center">
+            <h2 class="fw-bold mb-4 titulo_education_inicio_estilo">Educación Comunitaria</h2>
+            <p class="lead texto_intro_education_inicio_estilo mb-5">
+                La <strong>Comunidad ChugChillian</strong> concibe la educación como una herramienta de transformación
+                social y cultural.
+                Buscamos formar personas conscientes de sus raíces, orgullosas de su identidad y capaces de construir un
+                futuro en armonía
+                con la naturaleza y su comunidad. Nuestra plataforma promueve el <em>aprendizaje colaborativo</em>, el
+                respeto por el entorno
+                y la integración de saberes ancestrales y conocimientos modernos.
+            </p>
+
+            <div class="row g-4 justify-content-center">
+                <!-- CARD 1 -->
+                <div class="col-md-4 col-sm-6">
+                    <div class="card border-0 shadow-sm h-100 card_inicio_estilo">
+                        <img src="{% static 'general/images/inicio/imagen_inicio_carousel_1.png' %}" alt="Saberes Ancestrales"
+                             class="card-img-top rounded-top imagen_education_inicio_estilo">
+                        <div class="card-body">
+                            <h5 class="card-title fw-bold subtitulo_education_inicio_estilo">Saberes Ancestrales</h5>
+                            <p class="card-text texto_education_inicio_estilo">
+                                Nuestros mayores son la fuente del conocimiento: a través de sus relatos, su idioma y su
+                                sabiduría espiritual,
+                                transmiten valores de respeto, reciprocidad y comunidad. Este espacio honra su legado,
+                                fortaleciendo la conexión
+                                entre generaciones.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CARD 2 -->
+                <div class="col-md-4 col-sm-6">
+                    <div class="card border-0 shadow-sm h-100 card_inicio_estilo">
+                        <img src="{% static 'general/images/inicio/imagen_inicio_carousel_2.png' %}" alt="Educación Ambiental"
+                             class="card-img-top rounded-top imagen_education_inicio_estilo">
+                        <div class="card-body">
+                            <h5 class="card-title fw-bold subtitulo_education_inicio_estilo">Educación Ambiental</h5>
+                            <p class="card-text texto_education_inicio_estilo">
+                                ChugChillian promueve una educación que respeta a la Pachamama.
+                                Enseñamos a cuidar los ríos, los bosques y las semillas mediante prácticas agrícolas
+                                sostenibles,
+                                reciclaje y proyectos de reforestación liderados por jóvenes comprometidos con la vida.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CARD 3 -->
+                <div class="col-md-4 col-sm-6">
+                    <div class="card border-0 shadow-sm h-100 card_inicio_estilo">
+                        <img src="{% static 'general/images/inicio/imagen_inicio_carousel_3.png' %}" alt="Conocimiento Moderno"
+                             class="card-img-top rounded-top imagen_education_inicio_estilo">
+                        <div class="card-body">
+                            <h5 class="card-title fw-bold subtitulo_education_inicio_estilo">Conocimiento Moderno</h5>
+                            <p class="card-text texto_education_inicio_estilo">
+                                La educación no se detiene en las fronteras del tiempo.
+                                Incorporamos la tecnología, la investigación y la comunicación digital para acercar el
+                                conocimiento
+                                a los estudiantes rurales e indígenas, manteniendo viva su esencia cultural.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-5 frase_inspiradora_inicio_estilo">
+                <blockquote class="blockquote">
+                    “Educar es volver a nuestras raíces para sembrar el conocimiento del mañana.”
+                </blockquote>
+                <p class="autor_frase_inicio_estilo">— Comunidad Educativa ChugChillian</p>
+            </div>
+        </div>
+    </section>
+
+
+<section id="culture" class="culture_inicio_estilo py-5 position-relative overflow-hidden text-dark">
+
+  <div class="container">
+
+    <!-- TÍTULO -->
+    <div class="text-center mb-5">
+      <h2 class="fw-bold titulo_culture_inicio_estilo">Nuestra Cultura Viva</h2>
+      <p class="lead texto_intro_culture_inicio_estilo">
+        En <strong>ChugChillian</strong>, la educación es el puente entre generaciones.
+        Cada historia, palabra en kichwa y taller de arte se convierte en una semilla que fortalece nuestra comunidad.
+      </p>
+    </div>
+
+    <!-- BLOQUE 1: ARTE Y TRADICIÓN -->
+    <div class="row align-items-center mb-5">
+      <div class="col-md-6">
+        <img src="{% static 'general/images/inicio/arte_tradicion.jpg' %}" alt="Arte y Tradición"
+             class="img-fluid rounded-4 sombra_inicio_estilo">
+      </div>
+      <div class="col-md-6">
+        <h3 class="fw-bold subtitulo_culture_inicio_estilo mb-3">🎨 Arte y Tradición</h3>
+        <p class="texto_intro_education_inicio_estilo ">
+          En ChugChillian, el arte es un lenguaje vivo. Cada tejido, danza y melodía guarda la memoria colectiva
+          de nuestros pueblos y enseña a las nuevas generaciones el orgullo de su herencia.
+        </p>
+      </div>
+    </div>
+
+    <!-- BLOQUE 2: LENGUA Y SABIDURÍA -->
+    <div class="row align-items-center mb-5 flex-md-row-reverse">
+      <div class="col-md-6">
+        <img src="{% static 'general/images/inicio/lengua_sabiduria.jpg' %}" alt="Lengua y Sabiduría"
+             class="img-fluid rounded-4 sombra_inicio_estilo">
+      </div>
+      <div class="col-md-6">
+        <h3 class="fw-bold subtitulo_culture_inicio_estilo mb-3">🗣️ Lengua y Sabiduría</h3>
+        <p class="texto_intro_education_inicio_estilo ">
+          La lengua es identidad. Fomentamos el aprendizaje del kichwa y otras lenguas originarias,
+          para mantener viva la voz de nuestros pueblos y fortalecer el diálogo intercultural.
+        </p>
+      </div>
+    </div>
+
+    <!-- BLOQUE 3: COMUNIDAD Y FUTURO -->
+    <div class="row align-items-center mb-5">
+      <div class="col-md-6">
+        <img src="{% static 'general/images/inicio/comunidad_futuro.jpg' %}" alt="Comunidad y Futuro"
+             class="img-fluid rounded-4 sombra_inicio_estilo">
+      </div>
+      <div class="col-md-6">
+        <h3 class="fw-bold subtitulo_culture_inicio_estilo mb-3">🤝 Comunidad y Futuro</h3>
+        <p class="texto_intro_education_inicio_estilo ">
+          La educación intercultural une generaciones, impulsa el liderazgo juvenil y fomenta la innovación rural.
+          Juntos, sembramos un futuro sostenible que respeta el pasado y abraza el conocimiento moderno.
+        </p>
+      </div>
+    </div>
+
+    <!-- BLOQUE 4: IMPACTO DE LA EDUCACIÓN COMUNITARIA -->
+    <div class="row align-items-center mb-5 flex-md-row-reverse">
+      <div class="col-md-6">
+        <canvas id="educacionImpactoChart" height="250"></canvas>
+      </div>
+      <div class="col-md-6">
+        <h3 class="fw-bold subtitulo_culture_inicio_estilo mb-3">📈 Impacto de la Educación Comunitaria</h3>
+        <p class="texto_intro_education_inicio_estilo ">
+          Nuestra comunidad educativa transforma realidades. Los talleres, la formación ambiental y el liderazgo local
+          fortalecen los pilares culturales y sociales del territorio ChugChillian.
+        </p>
+      </div>
+    </div>
+
+    <!-- BLOQUE 5: ÁMBITOS DE DESARROLLO CULTURAL -->
+    <div class="row align-items-center mb-5">
+      <div class="col-md-6">
+        <canvas id="desarrolloCulturalChart" height="250"></canvas>
+      </div>
+      <div class="col-md-6">
+        <h3 class="fw-bold subtitulo_culture_inicio_estilo mb-3">🌿 Ámbitos de Desarrollo Cultural</h3>
+        <p class="texto_intro_education_inicio_estilo ">
+          La cultura florece cuando educación, arte y naturaleza se integran.
+          Este gráfico representa las áreas donde más crece nuestra influencia: educación, arte, lengua, ambiente y comunidad.
+        </p>
+      </div>
+    </div>
+
+    <!-- CTA FINAL -->
+    <div class="text-center mt-5">
+      <a href="#contact" class="btn btn-warning btn-lg fw-semibold boton_culture_inicio_estilo">
+        🌱 Participa en la Transformación Cultural
+      </a>
+      <p class="mt-4 texto_intro_education_inicio_estilo  fst-italic">
+        “Cada conocimiento compartido es una semilla de sabiduría que florece en comunidad.”
+      </p>
+    </div>
+
+  </div>
+</section>
+
+{% endblock %}
+{% block jvscript_archivos_defer %}
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  // === CHART 1: Impacto Educación Comunitaria ===
+  const ctx1 = document.getElementById('educacionImpactoChart');
+  new Chart(ctx1, {
+    type: 'bar',
+    data: {
+      labels: ['Cultura', 'Economía Local', 'Liderazgo Juvenil', 'Educación Ambiental', 'Lengua'],
+      datasets: [{
+        label: 'Impacto (%)',
+        data: [95, 88, 82, 90, 85],
+        backgroundColor: ['#D4A373', '#8B5E3C', '#3E7C17', '#A77B5A', '#C8B893'],
+        borderRadius: 8
+      }]
+    },
+    options: {
+      plugins: { legend: { display: false } },
+      scales: {
+        y: { beginAtZero: true, ticks: { color: '#444' } },
+        x: { ticks: { color: '#444' } }
+      }
+    }
+  });
+
+  // === CHART 2: Ámbitos de Desarrollo Cultural ===
+  const ctx2 = document.getElementById('desarrolloCulturalChart');
+  new Chart(ctx2, {
+    type: 'doughnut',
+    data: {
+      labels: ['Educación', 'Arte', 'Lengua', 'Ambiente', 'Comunidad'],
+      datasets: [{
+        data: [25, 20, 20, 15, 20],
+        backgroundColor: ['#8B5E3C', '#D4A373', '#3E7C17', '#C3B091', '#F5F3E7']
+      }]
+    },
+    options: {
+      cutout: '70%',
+      plugins: {
+        legend: { position: 'bottom', labels: { color: '#444', font: { size: 13 } } }
+      },
+      animation: { animateRotate: true, animateScale: true }
+    }
+  });
+</script>
+{% endblock %}

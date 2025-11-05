@@ -1,0 +1,127 @@
+{% extends 'cabezal.html' %}
+{% block etiqueta_estatica %}
+    {% load static %}
+{% endblock %}
+
+{% block titulo_pagina %}
+    <title>ChugChillian — Cursos Comunitarios</title>
+{% endblock %}
+
+{% block css_archivos %}
+    <link rel="stylesheet" href="{% static 'general/css/cursos/cursos.css' %}">
+{% endblock %}
+
+{% block contenido_pagina %}
+    <!-- 🔎 Buscador y Filtros -->
+<!-- =======================
+     BUSCADOR DE CURSOS
+======================= -->
+<div class="container mt-4 mb-5">
+  <div class="buscador_cursos_estilo shadow-sm rounded-4 p-4">
+    <form class="row gy-3 gx-4 align-items-center justify-content-center">
+
+      <!-- Campo de búsqueda -->
+      <div class="col-lg-4 col-md-6">
+        <div class="input-group buscador_input_estilo">
+          <span class="input-group-text bg-brown text-white border-0 px-3">
+            <i class="bi bi-search"></i>
+          </span>
+          <input type="text" class="form-control" placeholder="Buscar cursos... Ej: Kichwa, Agricultura, Arte" />
+        </div>
+      </div>
+
+      <!-- Filtro: Nivel -->
+      <div class="col-lg-2 col-md-4 col-sm-6">
+        <div class="filtro_curso_estilo">
+          <i class="bi bi-layers me-2 text-brown"></i>
+          <select class="form-select">
+            <option value="">Nivel</option>
+            <option>Básico</option>
+            <option>Intermedio</option>
+            <option>Avanzado</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Filtro: Duración -->
+      <div class="col-lg-2 col-md-4 col-sm-6">
+        <div class="filtro_curso_estilo">
+          <i class="bi bi-clock me-2 text-brown"></i>
+          <select class="form-select">
+            <option value="">Duración</option>
+            <option>Hasta 5 horas</option>
+            <option>5 - 10 horas</option>
+            <option>Más de 10 horas</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Filtro: Precio -->
+      <div class="col-lg-2 col-md-4 col-sm-6">
+        <div class="filtro_curso_estilo">
+          <i class="bi bi-cash-coin me-2 text-brown"></i>
+          <select class="form-select">
+            <option value="">Precio</option>
+            <option>Menos de $15</option>
+            <option>$15 - $25</option>
+            <option>Más de $25</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Filtro: Categoría -->
+      <div class="col-lg-2 col-md-4 col-sm-6">
+        <div class="filtro_curso_estilo">
+          <i class="bi bi-bookmark-heart me-2 text-brown"></i>
+          <select class="form-select">
+            <option value="">Categoría</option>
+            <option>Educación</option>
+            <option>Cultura</option>
+            <option>Ambiente</option>
+            <option>Tecnología</option>
+          </select>
+        </div>
+      </div>
+
+    </form>
+  </div>
+</div>
+
+    <section id="cursos" class="cursos_inicio_estilo py-5">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="fw-bold titulo_cursos_inicio_estilo">Cursos Comunitarios</h2>
+                <p class="lead texto_intro_cursos_inicio_estilo">
+                    En <strong>ChugChillian</strong> creemos que la educación florece cuando se comparte el
+                    conocimiento.
+                    Estos cursos integran saberes ancestrales, tecnología y colaboración para el desarrollo sostenible.
+                </p>
+            </div>
+
+            <div class="row g-4">
+                {% for curso in cursos %}
+                    <div class="col-lg-4 col-md-6">
+                        <div class="curso_card_inicio_estilo shadow-sm">
+                            <div class="curso_imagen_inicio_estilo">
+                                <img src="{% static curso.imagen %}" alt="{{ curso.titulo }}">
+                            </div>
+                            <div class="curso_contenido_inicio_estilo">
+                                <h5 class="fw-bold mt-2">{{ curso.titulo }}</h5>
+                                <p class="small text-muted mb-1">Por <strong>{{ curso.autor }}</strong>
+                                    • {{ curso.duracion }}</p>
+                                <p class="descripcion_curso_inicio_estilo">
+                                    {{ curso.descripcion }}
+                                </p>
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <span class="badge bg-{{ curso.nivel_color }} rounded-pill">Nivel: {{ curso.nivel }}</span>
+                                    <span class="text-brown fw-bold">${{ curso.precio }}</span>
+                                </div>
+                                <button class="btn btn-outline-brown w-100 mt-3 fw-semibold">Ver Curso</button>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+{% endblock %}

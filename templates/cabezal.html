@@ -1,0 +1,287 @@
+{% block etiqueta_estatica %}
+    {% load static %}
+{% endblock %}
+<!DOCTYPE html>
+<html lang="en" style="
+scroll-behavior: smooth;
+">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% block titulo_pagina %}
+    {% endblock %}
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/img/favicon/apple-touch-icon.png">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/uicons/1.0.0/css/uicons-regular-rounded.css"
+          rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@iconscout/unicons@4.0.0/css/line.css">
+<link rel="stylesheet" href="{% static 'general/css/generales/generales.css' %}">
+    {% block sobreescribir_css_archivos %}
+        {% block css_archivos %}
+        {% endblock %}
+    {% endblock %}
+    {% block sobreescribir_jvscript_archivos %}
+        {% block jvscript_archivos %}
+        {% endblock %}
+    {% endblock %}
+</head>
+<body>
+{% block sobreescribir_contenido_pagina %}
+    <!-- CABECERA -->
+<!-- =======================
+       CABECERA PRINCIPAL
+======================= -->
+<header class="header_inicio_estilo shadow-sm sticky-top">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-brown py-3">
+    <div class="container d-flex align-items-center justify-content-between">
+
+      <!-- LOGO / MARCA -->
+      <a class="navbar-brand d-flex align-items-center fw-bold fs-5 text-uppercase" href="{% url 'inicio' %}">
+        <img src="{% static 'general/images/general/logo.png' %}" alt="Logo ChugChillian"
+             class="me-2" style="height: 42px;">
+        Comunidad ChugChillian
+      </a>
+
+      <!-- BOTÓN MÓVIL -->
+      <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+              aria-controls="navbarNav" aria-expanded="false" aria-label="Menú de navegación">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <!-- ENLACES DE NAVEGACIÓN -->
+      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+        <ul class="navbar-nav align-items-center gap-3">
+          <li class="nav-item">
+            <a class="nav-link {% if request.path == '/' %}active{% endif %}" href="{% url 'inicio' %}">
+              Inicio
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link {% if 'cursos' in request.path %}active{% endif %}" href="{% url 'cursos' %}">
+              Cursos
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link {% if 'contacto' in request.path %}active{% endif %}" href="{% url 'contacto' %}">
+              Contacto
+            </a>
+          </li>
+
+          <!-- BOTÓN DE SESIÓN -->
+          <li class="nav-item ms-lg-3">
+            <a href="{% url 'login' %}" class="btn btn-outline-warning fw-semibold px-4 py-2 rounded-pill">
+              <i class="bi bi-person-circle me-1"></i> Iniciar Sesión
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>
+
+    <!-- CABECERA -->
+    {% block contenido_pagina %}
+    {% endblock %}
+    <!-- PIE DE PÁGINA -->
+<footer class="footer_inicio_estilo text-white pt-5 pb-4 mt-5">
+  <div class="container">
+    <div class="row gy-4">
+
+      <!-- Columna 1: Identidad -->
+      <div class="col-lg-4 col-md-6">
+        <h4 class="fw-bold mb-3 titulo_footer_inicio_estilo">Comunidad ChugChillian</h4>
+        <p class="texto_footer_inicio_estilo">
+          Somos una comunidad dedicada a fortalecer la educación, la cultura viva y la sabiduría ancestral,
+          inspirando generaciones en armonía con la tierra.
+        </p>
+        <p class="fst-italic frase_footer_inicio_estilo">
+          “Donde florece la enseñanza, crece la comunidad.”
+        </p>
+      </div>
+
+      <!-- Columna 2: Enlaces Rápidos -->
+      <div class="col-lg-4 col-md-6">
+        <h5 class="fw-semibold mb-3 subtitulo_footer_inicio_estilo">Enlaces Rápidos</h5>
+        <ul class="list-unstyled enlaces_footer_inicio_estilo">
+          <li><a href="{% url 'inicio' %}">Inicio</a></li>
+          <li><a href="{% url 'cursos' %}">Cursos</a></li>
+          <li><a href="{% url 'contacto' %}">Contacto</a></li>
+          <li><a href="{% url 'login' %}">Inicio de sesion</a></li>
+        </ul>
+      </div>
+
+      <!-- Columna 3: Contacto -->
+      <div class="col-lg-4 col-md-12">
+        <h5 class="fw-semibold mb-3 subtitulo_footer_inicio_estilo">Contacto</h5>
+        <ul class="list-unstyled contacto_footer_inicio_estilo">
+          <li><i class="bi bi-geo-alt-fill me-2"></i>Chugchillán, Cotopaxi - Ecuador</li>
+          <li><i class="bi bi-envelope-fill me-2"></i><a href="mailto:contacto@chugchillian.org">contacto@chugchillian.org</a></li>
+          <li><i class="bi bi-telephone-fill me-2"></i>+593 98 765 4321</li>
+        </ul>
+        <div class="d-flex gap-3 mt-3 redes_footer_inicio_estilo">
+          <a href="#" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+          <a href="#" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+          <a href="#" aria-label="YouTube"><i class="bi bi-youtube"></i></a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Separador -->
+    <hr class="footer_divisor_inicio_estilo my-4">
+
+    <!-- Créditos -->
+    <div class="text-center texto_copyright_inicio_estilo">
+      &copy; 2025 Comunidad ChugChillian — Inspirando Educación, Cultura y Vida Ancestral.
+    </div>
+  </div>
+</footer>
+
+
+
+{% endblock %}
+{% block sobreescribir_jvscript_archivos_defer %}
+    <script>
+        // Intentar reproducir automáticamente al cargar la página
+        window.addEventListener('load', () => {
+            const audio = document.getElementById('audioInicio');
+            const playPromise = audio.play();
+
+            // Si el navegador bloquea el autoplay, mostrar un botón
+            if (playPromise !== undefined) {
+                playPromise.catch(() => {
+                    const aviso = document.createElement('div');
+                    aviso.innerHTML = `
+            <div style="
+              position: fixed;
+              bottom: 20px;
+              left: 50%;
+              transform: translateX(-50%);
+              background: rgba(0,0,0,0.8);
+              color: white;
+              padding: 12px 20px;
+              border-radius: 8px;
+              z-index: 9999;
+              font-family: 'Quicksand', sans-serif;
+              box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            ">
+              🎵 Haz clic para activar el sonido
+              <button id="btnPlayAudio" style="
+                background-color: #D4A373;
+                border: none;
+                color: #fff;
+                margin-left: 10px;
+                padding: 5px 10px;
+                border-radius: 5px;
+                cursor: pointer;
+              ">Reproducir</button>
+            </div>
+          `;
+                    document.body.appendChild(aviso);
+
+                    document.getElementById('btnPlayAudio').addEventListener('click', () => {
+                        audio.play();
+                        aviso.remove();
+                    });
+                });
+            }
+        });
+    </script>
+
+    {% block jvscript_archivos_defer %}
+    {% endblock %}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Chart 1: Impacto de la Educación Comunitaria
+        const ctx1 = document.getElementById('educacionImpactoChart');
+        new Chart(ctx1, {
+            type: 'bar',
+            data: {
+                labels: ['Cultura', 'Economía Local', 'Liderazgo Juvenil', 'Educación Ambiental', 'Lengua'],
+                datasets: [{
+                    label: 'Porcentaje de Impacto',
+                    data: [95, 88, 82, 90, 85],
+                    backgroundColor: ['#D4A373', '#8B5E3C', '#3E7C17', '#F5F3E7', '#D68C45'],
+                    borderRadius: 8
+                }]
+            },
+            options: {
+                plugins: {legend: {display: false}},
+                scales: {y: {beginAtZero: true, ticks: {color: '#fff'}}, x: {ticks: {color: '#fff'}}}
+            }
+        });
+
+        // Chart 2: Ámbitos de Desarrollo Cultural
+        const ctx2 = document.getElementById('desarrolloCulturalChart');
+        new Chart(ctx2, {
+            type: 'doughnut',
+            data: {
+                labels: ['Educación', 'Arte', 'Lengua', 'Ambiente', 'Comunidad'],
+                datasets: [{
+                    data: [30, 20, 15, 15, 20],
+                    backgroundColor: ['#8B5E3C', '#D4A373', '#3E7C17', '#C3B091', '#F5F3E7'],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                plugins: {
+                    legend: {labels: {color: '#fff'}}
+                }
+            }
+        });
+    </script>
+{% endblock %}
+
+<!-- ======================
+     CHATBOT CHUGCHILLIAN
+====================== -->
+<div id="chatbot" style="position: fixed; bottom: 20px; right: 20px; background: white; width: 320px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); display: none; flex-direction: column; font-family: 'Quicksand', sans-serif; z-index: 9999;">
+  <div style="background:#8B5E3C; color:#fff; padding:10px; display:flex; align-items:center; gap:10px; font-weight:bold;">
+  <img src="{% static 'general/images/general/logo.png' %}" alt="Logo" style="width:32px;height:32px;border-radius:50%;object-fit:cover;">
+  <span>Asistente ChugChillian 💬</span>
+</div>
+
+  <div id="chat-messages" style="padding:10px; height:240px; overflow-y:auto; font-size:14px;"></div>
+  <div style="display:flex; border-top:1px solid #ddd;">
+    <input id="chat-input" type="text" placeholder="Escribe tu pregunta..." style="flex:1; border:none; padding:8px; outline:none;">
+    <button id="chat-send" style="background:#D4A373; color:#fff; border:none; padding:0 15px; cursor:pointer;">➤</button>
+  </div>
+</div>
+
+<button id="chat-toggle" style="position: fixed; bottom: 25px; right: 25px; background: none; border: none; border-radius: 50%; width: 65px; height: 65px; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.3); z-index: 9999;">
+  <img src="{% static 'general/images/general/logo.png' %}" alt="Chatbot" style="width:100%;height:100%;border-radius:50%;object-fit:cover;">
+</button>
+
+<script>
+const chatToggle = document.getElementById("chat-toggle");
+const chatBox = document.getElementById("chatbot");
+const sendBtn = document.getElementById("chat-send");
+const input = document.getElementById("chat-input");
+const messages = document.getElementById("chat-messages");
+
+chatToggle.onclick = () => chatBox.style.display = chatBox.style.display === "flex" ? "none" : "flex";
+
+async function sendMessage() {
+  const text = input.value.trim();
+  if (!text) return;
+  messages.innerHTML += `<div><b>Tú:</b> ${text}</div>`;
+  input.value = "";
+
+  const res = await fetch("/api/chat/", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ message: text })
+  });
+
+  const data = await res.json();
+  messages.innerHTML += `<div><b>Bot:</b> ${data.reply || "Error al obtener respuesta."}</div>`;
+  messages.scrollTop = messages.scrollHeight;
+}
+
+sendBtn.onclick = sendMessage;
+input.addEventListener("keypress", e => e.key === "Enter" ? sendMessage() : null);
+</script>
+
+</body>
+</html>
