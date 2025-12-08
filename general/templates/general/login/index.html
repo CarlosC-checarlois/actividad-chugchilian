@@ -8,6 +8,7 @@
 {% endblock %}
 
 {% block contenido_pagina %}
+
 <section class="login_inicio_estilo d-flex align-items-center justify-content-center min-vh-100">
   <div class="container">
     <div class="row justify-content-center">
@@ -16,23 +17,45 @@
       <div class="col-md-6 col-lg-5">
         <div class="card border-0 shadow-lg rounded-4 p-4 login_card_estilo">
 
-          <!-- ENCABEZADO -->
+          <!-- LOGO + TÍTULO -->
           <div class="text-center mb-4">
-            <img src="{% static 'general/images/general/logo.png' %}" alt="Logo ChugChillian" class="mb-3" style="height: 60px;">
+            <img src="{% static 'general/images/general/logo.png' %}" alt="Logo ChugChillian"
+                 class="mb-3" style="height: 60px;">
             <h3 class="fw-bold text-brown">Bienvenido de nuevo</h3>
             <p class="text-muted small">Ingresa tus credenciales para continuar</p>
           </div>
 
-          <!-- FORMULARIO -->
+          <!-- MENSAJES (Bootstrap Alerts) -->
+          {% if messages %}
+            {% for message in messages %}
+              <div class="alert alert-{{ message.tags }} text-center py-2 rounded-pill mb-3">
+                {{ message }}
+              </div>
+            {% endfor %}
+          {% endif %}
+
+          <!-- FORMULARIO LOGIN -->
           <form method="post" action="">
             {% csrf_token %}
+
             <div class="mb-3">
-              <label for="username" class="form-label fw-semibold">Correo o Usuario</label>
-              <input type="text" class="form-control input_login_estilo" id="username" name="username" placeholder="Ej. maria@chugchillian.org" required>
+              <label for="email" class="form-label fw-semibold">Correo electrónico</label>
+              <input type="email"
+                     class="form-control input_login_estilo"
+                     id="email"
+                     name="email"
+                     placeholder="Ej. usuario@ejemplo.com"
+                     required>
             </div>
+
             <div class="mb-3">
               <label for="password" class="form-label fw-semibold">Contraseña</label>
-              <input type="password" class="form-control input_login_estilo" id="password" name="password" placeholder="********" required>
+              <input type="password"
+                     class="form-control input_login_estilo"
+                     id="password"
+                     name="password"
+                     placeholder="********"
+                     required>
             </div>
 
             <div class="d-flex justify-content-between align-items-center mb-3">
@@ -43,7 +66,8 @@
               <a href="#" class="text-decoration-none small text-warning">¿Olvidaste tu contraseña?</a>
             </div>
 
-            <button type="submit" class="btn btn-brown w-100 py-2 fw-semibold rounded-pill">
+            <button type="submit"
+                    class="btn btn-brown w-100 py-2 fw-semibold rounded-pill">
               Iniciar Sesión
             </button>
           </form>
@@ -51,15 +75,19 @@
           <!-- SEPARADOR -->
           <div class="text-center my-4 text-muted">— o —</div>
 
-          <!-- OPCIÓN DE REGISTRO -->
+          <!-- REGISTRO -->
           <div class="text-center">
             <p class="mb-0">¿No tienes una cuenta?</p>
-            <a href="{% url 'registro' %}" class="text-warning fw-semibold text-decoration-none">Crea una nueva</a>
+            <a href="{% url 'registro' %}" class="text-warning fw-semibold text-decoration-none">
+              Crea una nueva
+            </a>
           </div>
+
         </div>
       </div>
 
     </div>
   </div>
 </section>
+
 {% endblock %}

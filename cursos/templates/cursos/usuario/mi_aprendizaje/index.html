@@ -1,0 +1,73 @@
+{% extends 'cabezal.html' %}
+{% load static %}
+
+{% block titulo_pagina %}
+    <title>Mi aprendizaje | ChugChillian</title>
+{% endblock %}
+
+{% block contenido_pagina %}
+
+    <div class="container my-5">
+
+        <h2 class="fw-bold text-brown mb-4">📚 Mi aprendizaje</h2>
+
+        {% if mis_cursos %}
+
+            <div class="row g-4">
+
+                {% for item in mis_cursos %}
+                    <div class="col-md-6 col-lg-4">
+
+                        <div class="card h-100 shadow border-0 rounded-4">
+
+                            <img src="{{ item.curso.URL_PORTADA_CURSO|default:'/static/general/images/inicio/imagen_inicio_portada.png' }}"
+                                 class="card-img-top rounded-top-4">
+
+                            <div class="card-body d-flex flex-column">
+
+                                <h5 class="fw-bold text-brown">{{ item.curso.NOMBRE_CURSO }}</h5>
+
+                                <p class="small text-muted">
+                                    ⏳ {{ item.curso.DURACION_TOTAL_CURSO }} horas <br>
+                                    👥 {{ item.curso.SUBSCRIPCION_TOTAL_CURSO }} estudiantes
+                                </p>
+
+                                <p class="small">{{ item.curso.DESCRIPCION_CURSO|truncatechars:90 }}</p>
+
+                                <div class="mt-auto">
+
+                                    <div class="progress mb-2" style="height:8px">
+                                        <div class="progress-bar bg-success" style="width: 10%"></div>
+                                    </div>
+
+                                    <a href="{% url 'curso_aprender' item.curso.id %}"
+                                       class="btn btn-outline-success btn-sm w-100 fw-semibold">
+                                        Continuar curso
+                                    </a>
+
+
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                {% endfor %}
+
+            </div>
+
+        {% else %}
+
+            <div class="alert alert-info">
+                😅 Aún no estás inscrito en ningún curso.
+                <br><br>
+                <a href="{% url 'cursos' %}" class="btn btn-outline-success">
+                    Explorar cursos
+                </a>
+            </div>
+
+        {% endif %}
+
+    </div>
+
+{% endblock %}

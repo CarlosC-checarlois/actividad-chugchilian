@@ -1,0 +1,125 @@
+{% extends 'cabezal.html' %}
+{% load static %}
+
+{% block titulo_pagina %}
+    <title>Crear Cuenta | ChugChillian</title>
+{% endblock %}
+
+{% block css_archivos %}
+    <link rel="stylesheet" href="{% static 'general/css/login/login.css' %}">
+{% endblock %}
+
+{% block contenido_pagina %}
+
+    <section class="login_inicio_estilo d-flex align-items-center justify-content-center min-vh-100">
+        <div class="container">
+            <div class="row justify-content-center">
+
+                <div class="col-md-10 col-lg-8 col-xl-7">
+                    <div class="card border-0 shadow-lg rounded-4 p-4 login_card_estilo">
+
+                        <!-- LOGO -->
+                        <div class="text-center mb-3">
+                            <img src="{% static 'general/images/general/logo.png' %}"
+                                 alt="ChugChillian"
+                                 style="height: 60px;">
+                            <h3 class="fw-bold text-brown mt-3">Crea tu cuenta</h3>
+                            <p class="text-muted small">Únete a la comunidad del conocimiento</p>
+                        </div>
+
+                        <!-- MENSAJES -->
+                        {% if messages %}
+                            {% for message in messages %}
+                                <div class="alert alert-{{ message.tags }} text-center py-2 rounded-pill">
+                                    {{ message }}
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+
+                        <!-- FORMULARIO -->
+                        <form method="POST">
+                            {% csrf_token %}
+
+                            <div class="row">
+
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label fw-semibold">Primer nombre</label>
+                                    <input type="text" name="primer_nombre" class="form-control input_login_estilo" required>
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label fw-semibold">Segundo nombre</label>
+                                    <input type="text" name="segundo_nombre" class="form-control input_login_estilo">
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label fw-semibold">Primer apellido</label>
+                                    <input type="text" name="primer_apellido" class="form-control input_login_estilo" required>
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label fw-semibold">Segundo apellido</label>
+                                    <input type="text" name="segundo_apellido" class="form-control input_login_estilo">
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label fw-semibold">Apodo</label>
+                                    <input type="text" name="apodo" class="form-control input_login_estilo" required>
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label fw-semibold">Correo electrónico</label>
+                                    <input type="email" name="email" class="form-control input_login_estilo" required>
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label fw-semibold">Teléfono</label>
+                                    <input type="text" name="telefono" class="form-control input_login_estilo">
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label fw-semibold">Fecha de nacimiento</label>
+                                    <input type="date" name="fecha_nacimiento" class="form-control input_login_estilo">
+                                </div>
+
+                                <div class="col-12 mb-3">
+                                    <label class="form-label fw-semibold">Dirección</label>
+                                    <input type="text" name="direccion" class="form-control input_login_estilo">
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label fw-semibold">Contraseña</label>
+                                    <input type="password" name="password" class="form-control input_login_estilo"
+                                           required>
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label fw-semibold">Confirmar contraseña</label>
+                                    <input type="password" name="password2" class="form-control input_login_estilo"
+                                           required>
+                                </div>
+
+                            </div>
+
+                            <button class="btn btn-brown w-100 py-2 mt-2 fw-semibold rounded-pill">
+                                Crear cuenta
+                            </button>
+
+                        </form>
+
+                        <!-- FOOTER -->
+                        <div class="text-center mt-3">
+                            <small>¿Ya tienes cuenta?</small>
+                            <a href="{% url 'login' %}" class="text-warning fw-semibold text-decoration-none">
+                                Inicia sesión aquí
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

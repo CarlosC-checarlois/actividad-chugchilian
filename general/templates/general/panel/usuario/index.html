@@ -1,0 +1,396 @@
+{% extends 'cabezal.html' %}
+{% load static %}
+
+
+
+{% block css_archivos %}
+<style>
+/* ==========================================================
+   PANEL DEL USUARIO — DISEÑO CHUGCHILLIAN
+   Paleta: café, dorado, beige, verde natural.
+   ========================================================== */
+
+/* --------------------- CONTAINER --------------------- */
+.container {
+    max-width: 1140px;
+    margin: 0 auto;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* --------------------- TEXTOS --------------------- */
+.panel-title {
+    color: #5c3b1a;
+    font-weight: 700;
+}
+
+.text-brown {
+    color: #5c3b1a !important;
+}
+
+/* --------------------- TARJETAS DE ESTADÍSTICAS --------------------- */
+.stat-card {
+    border-left: 6px solid #d29544;
+    background-color: #ffffff;
+    transition: 0.3s ease-in-out;
+    border-radius: 15px;
+    min-height: 180px;
+}
+
+.stat-card h5 {
+    font-weight: 700;
+    color: #5c3b1a;
+}
+
+.stat-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+}
+
+/* --------------------- TARJETAS DE CURSOS --------------------- */
+.curso-card {
+    border-radius: 18px;
+    overflow: hidden;
+    transition: 0.3s ease;
+    border: none;
+    background-color: #fff;
+}
+
+.curso-card img {
+    width: 100%;
+    height: 190px;
+    object-fit: cover;
+}
+
+.curso-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0px 10px 25px rgba(0,0,0,0.12);
+}
+
+.curso-card h5 {
+    color: #5c3b1a;
+    font-weight: 700;
+}
+
+.curso-card .btn {
+    background-color: #d29544;
+    border: none;
+    color: #fff;
+    font-weight: 600;
+}
+
+.curso-card .btn:hover {
+    background-color: #b47832;
+}
+
+/* Estrellas */
+.estrella {
+    color: #d29544;
+    font-size: 1.1rem;
+}
+
+/* --------------------- TARJETAS DE GRÁFICAS --------------------- */
+.chart-card {
+    border-radius: 20px;
+    background-color: #ffffff;
+    box-shadow: 0px 6px 18px rgba(0,0,0,0.08);
+    min-height: 260px;
+}
+
+.chart-card h5 {
+    font-weight: 700;
+    color: #5c3b1a;
+}
+
+/* --------------------- BOTONES --------------------- */
+.btn-brown {
+    background-color: #5c3b1a;
+    color: #ffffff !important;
+    border-radius: 40px;
+    padding: 10px 22px;
+    border: none;
+    transition: 0.3s;
+}
+
+.btn-brown:hover {
+    background-color: #7a5125;
+    box-shadow: 0px 6px 15px rgba(0,0,0,0.20);
+}
+
+/* --------------------- ENCABEZADOS --------------------- */
+blockquote {
+    border-left: 5px solid #d29544;
+    padding-left: 15px;
+    font-style: italic;
+    color: #5c3b1a;
+}
+
+blockquote-footer {
+    color: #856d52;
+    font-weight: 600;
+}
+
+/* --------------------- RESPONSIVE --------------------- */
+@media (max-width: 991px) {
+    .curso-card img {
+        height: 160px;
+    }
+
+    .stat-card {
+        text-align: center;
+    }
+
+    .chart-card {
+        padding: 1rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .panel-title {
+        font-size: 1.6rem;
+    }
+
+    .curso-card img {
+        height: 140px;
+    }
+}
+</style>
+{% endblock %}
+
+{% block contenido_pagina %}
+
+<section class="py-5">
+  <div class="container">
+
+    <!-- TÍTULO -->
+    <div class="text-center mb-5">
+      <h2>Bienvenido al Panel del Usuario 🌿</h2>
+      <p>Has ingresado como <strong>{{ usuario }}</strong>.</p>
+    </div>
+
+    <!-- ESTADÍSTICAS PRINCIPALES -->
+    <div class="row g-4 mb-5">
+      <div class="col-md-4">
+        <div class="card p-4">
+          <h5>⏳ Tiempo de visualización</h5>
+          <p>34h</p>
+          <p>Total del último mes</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card p-4">
+          <h5>📘 Cursos suscritos</h5>
+          <p>5</p>
+          <p>Incluye cursos activos</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card p-4">
+          <h5>💬 Comentarios enviados</h5>
+          <p>18</p>
+          <p>En foros y actividades</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- GRÁFICAS -->
+    <div class="row g-4 mb-5">
+      <div class="col-lg-6">
+        <div class="card p-4">
+          <h5>📈 Tiempo de visualización mensual</h5>
+          <canvas id="chartTiempo"></canvas>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="card p-4">
+          <h5>📘 Distribución de cursos inscritos</h5>
+          <canvas id="chartCursos"></canvas>
+        </div>
+      </div>
+
+    <!-- SECCIÓN DE CURSOS PARA CONTINUAR -->
+    <div class="mb-5">
+      <h3 class="mb-4">📚 Cursos que puedes seguir viendo</h3>
+      <div class="row g-4">
+
+        {% for i in "123" %}
+        <div class="col-md-4">
+          <div class="card">
+            <img src="{% static 'general/images/inicio/imagen_inicio_carousel_1.png' %}" alt="Curso {{ i }}">
+            <div class="card-body">
+              <h5>Curso {{ i }} - Nombre de Ejemplo</h5>
+              <p>Descripción breve del curso {{ i }} para enganchar al usuario.</p>
+              <p>⭐⭐⭐⭐⭐</p>
+              <a href="#" class="btn btn-warning">Continuar</a>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+
+      </div>
+    </div>
+
+    <!-- SECCIÓN DE SUGERENCIAS DE NUEVOS CURSOS -->
+    <div class="mb-5">
+      <h3 class="mb-4">✨ Sugerencias para ti</h3>
+      <div class="row g-4">
+
+        <div class="col-md-3">
+          <div class="card">
+            <img src="{% static 'general/images/inicio/imagen_inicio_carousel_2.png' %}" alt="Curso nuevo 1">
+            <div class="card-body">
+              <h6>Nuevas Técnicas Agrícolas</h6>
+              <a href="#" class="btn btn-outline-primary btn-sm">Ver más</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-3">
+          <div class="card">
+            <img src="{% static 'general/images/inicio/imagen_inicio_carousel_2.png' %}" alt="Curso nuevo 2">
+            <div class="card-body">
+              <h6>Autonomía Alimentaria</h6>
+              <a href="#" class="btn btn-outline-primary btn-sm">Ver más</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-3">
+          <div class="card">
+            <img src="{% static 'general/images/inicio/imagen_inicio_carousel_2.png' %}" alt="Curso nuevo 3">
+            <div class="card-body">
+              <h6>Uso de Hierbas Medicinales</h6>
+              <a href="#" class="btn btn-outline-primary btn-sm">Ver más</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-3">
+          <div class="card">
+            <img src="{% static 'general/images/inicio/imagen_inicio_carousel_2.png' %}" alt="Curso nuevo 4">
+            <div class="card-body">
+              <h6>Memoria Oral de los Abuelos</h6>
+              <a href="#" class="btn btn-outline-primary btn-sm">Ver más</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- TESTIMONIOS O MENSAJE DEL EQUIPO -->
+    <div class="text-center mb-5">
+      <blockquote class="blockquote">
+        <p class="mb-0">"Gracias por mantener viva nuestra cultura 🌱."</p>
+        <footer class="blockquote-footer mt-2">Equipo de Comunidad Chugchillian</footer>
+      </blockquote>
+    </div>
+
+    <!-- BOTÓN VOLVER AL INICIO -->
+    <div class="text-center mt-4">
+      <a href="{% url 'inicio' %}" class="btn btn-primary">Volver al Inicio</a>
+    </div>
+
+  </div>
+</section>
+
+{% endblock %}
+
+{% block jvscript_archivos_defer %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+  // ======================================
+  // TIEMPO DE VISUALIZACIÓN MENSUAL (LINEA)
+  // ======================================
+  new Chart(document.getElementById("chartTiempo"), {
+    type: "line",
+    data: {
+      labels: ["Ene", "Feb", "Mar", "Abr", "May", "Jun"],
+      datasets: [{
+        label: "Horas",
+        data: [5, 8, 12, 10, 15, 18],
+        borderColor: "#5c3b1a",
+        backgroundColor: "rgba(212, 149, 68, 0.2)",
+        tension: 0.4,
+        borderWidth: 3,
+        fill: true,
+        pointRadius: 5,
+        pointBackgroundColor: "#d29544"
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: { display: false },
+        tooltip: { mode: "index", intersect: false }
+      },
+      scales: {
+        y: {
+          beginAtZero: true,
+          ticks: { stepSize: 5 }
+        }
+      }
+    }
+  });
+
+  // ======================================
+  // DISTRIBUCIÓN DE CURSOS (DOUGHNUT)
+  // ======================================
+  new Chart(document.getElementById("chartCursos"), {
+    type: "doughnut",
+    data: {
+      labels: ["Ambiental", "Cultural", "Historia", "Tecnología", "Otros"],
+      datasets: [{
+        data: [2, 1, 1, 1, 0],
+        backgroundColor: ["#3E7C17", "#D4A373", "#8B5E3C", "#C3B091", "#EFE6DA"],
+        borderWidth: 2,
+        hoverOffset: 12
+      }]
+    },
+    options: {
+      responsive: true,
+      cutout: "65%",
+      plugins: {
+        legend: {
+          position: "bottom",
+          labels: {
+            color: "#5c3b1a",
+            font: { weight: "bold" }
+          }
+        }
+      }
+    }
+  });
+
+  // ======================================
+  // COMENTARIOS EN FOROS Y ACTIVIDADES (BARRAS)
+  // ======================================
+  new Chart(document.getElementById("chartComentarios"), {
+    type: "bar",
+    data: {
+      labels: ["Foros", "Actividades", "Cursos"],
+      datasets: [{
+        label: "Comentarios",
+        data: [10, 5, 3],
+        backgroundColor: ["#D4A373", "#8B5E3C", "#3E7C17"],
+        borderRadius: 12,
+        barThickness: 40
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: { display: false }
+      },
+      scales: {
+        y: {
+          beginAtZero: true,
+          ticks: { stepSize: 2 }
+        }
+      }
+    }
+  });
+</script>
+
+{% endblock %}

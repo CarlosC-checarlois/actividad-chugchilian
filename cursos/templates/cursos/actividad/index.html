@@ -1,0 +1,151 @@
+{% extends 'cabezal.html' %}
+{% load static %}
+
+{% block titulo_pagina %}
+<title>{{ curso.NOMBRE_CURSO }} | ChugChillian</title>
+{% endblock %}
+
+{% block css_archivos %}
+<style>
+  .player-layout {
+      min-height: calc(100vh - 120px);
+  }
+  .sidebar-contenido {
+      max-height: calc(100vh - 180px);
+      overflow-y: auto;
+  }
+</style>
+{% endblock %}
+
+{% block contenido_pagina %}
+
+<div class="container-fluid py-4 player-layout bg-light">
+
+  <!-- CABECERA DEL CURSO -->
+  <div class="container mb-3">
+    <h3 class="fw-bold text-brown mb-1">{{ curso.NOMBRE_CURSO }}</h3>
+    <div class="small text-muted">
+      ⏳ {{ curso.DURACION_TOTAL_CURSO }} horas · 👥 {{ curso.SUBSCRIPCION_TOTAL_CURSO }} participantes
+    </div>
+
+    <!-- Progreso (de momento fijo) -->
+    <div class="mt-3">
+      <div class="d-flex justify-content-between small mb-1">
+        <span>Progreso del curso</span>
+        <span>{{ progreso_porcentaje }}%</span>
+      </div>
+      <div class="progress" style="height: 8px;">
+        <div class="progress-bar bg-success" style="width: {{ progreso_porcentaje }}%;"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ZONA PRINCIPAL -->
+  <div class="container-fluid">
+    <div class="row g-3">
+
+      <!-- COLUMNA IZQUIERDA: VIDEO + INFO DE LA ACTIVIDAD -->
+      <div class="col-lg-8">
+
+        <div class="card border-0 shadow-sm rounded-4 mb-3">
+          <div class="card-body p-0">
+
+            <!-- Player de video / recurso -->
+            <div class="ratio ratio-16x9 bg-dark rounded-top-4">
+              {% if actividad_actual and actividad_actual.URL_VIDEO_ACTIVIDAD %}
+                <!-- Si tienes un campo con la URL del video, úsalo aquí -->
+                <iframe src="{{ actividad_actual.URL_VIDEO_ACTIVIDAD }}"
+                        title="{{ actividad_actual.NOMBRE_ACTIVIDAD }}"
+                        allowfullscreen></iframe>
+              {% else %}
+                <!-- Placeholder si aún no tienes videos -->
+                <div class="d-flex flex-column justify-content-center align-items-center text-white">
+                  <i class="bi bi-play-circle-fill mb-2" style="font-size: 3rem;"></i>
+                  <p class="mb-0">Aquí irá el contenido de la actividad actual</p>
+                </div>
+              {% endif %}
+            </div>
+
+            <div class="p-3">
+              <h5 class="fw-bold mb-1">
+                {% if actividad_actual %}
+                  {{ actividad_actual.NOMBRE_ACTIVIDAD }}
+                {% else %}
+                  Sin actividad seleccionada
+                {% endif %}
+              </h5>
+
+              {% if actividad_actual and actividad_actual.DESCRIPCION_ACTIVIDAD %}
+                <p class="small text-muted mb-0">
+                  {{ actividad_actual.DESCRIPCION_ACTIVIDAD }}
+                </p>
+              {% endif %}
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Descripción general del curso -->
+        <div class="card border-0 shadow-sm rounded-4">
+          <div class="card-body">
+            <h6 class="fw-bold text-brown mb-2">Sobre este aprendizaje</h6>
+            <p class="small mb-0">{{ curso.DESCRIPCION_CURSO }}</p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- COLUMNA DERECHA: CONTENIDO DEL CURSO -->
+      <div class="col-lg-4">
+        <div class="card border-0 shadow-sm rounded-4">
+          <div class="card-header bg-white fw-bold text-brown">
+            Contenido del curso
+          </div>
+
+          <div class="card-body sidebar-contenido">
+
+            {% for seccion in secciones %}
+              <div class="mb-3">
+                <div class="fw-semibold mb-1">
+                  Ruta {{ seccion.ORDEN_SECCION_CURSO }} · {{ seccion.TITULO_SECCION_CURSO|default:"Sección" }}
+                </div>
+
+                <ul class="list-group list-group-flush">
+                  {% for actividad in seccion.actividades.all %}
+                    {% with es_actual=actividad_actual.id|default:0 %}
+                    <li class="list-group-item py-2 px-2 small
+                               {% if actividad.id == es_actual %}bg-light border-start border-3 border-success{% endif %}">
+
+                      <a href="{% url 'curso_aprender' curso.id %}?actividad={{ actividad.id }}"
+                         class="text-decoration-none d-flex justify-content-between align-items-center">
+
+                        <span>
+                          <i class="bi bi-play-circle me-1"></i>
+                          {{ actividad.NOMBRE_ACTIVIDAD }}
+                        </span>
+
+                        <span class="text-muted ms-2">
+                          {{ actividad.DURACION_TOTAL_ACTIVIDAD }} min
+                        </span>
+                      </a>
+                    </li>
+                    {% endwith %}
+                  {% endfor %}
+                </ul>
+              </div>
+            {% empty %}
+              <p class="small text-muted mb-0">
+                Aún no hay secciones configuradas para este curso.
+              </p>
+            {% endfor %}
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+{% endblock %}
