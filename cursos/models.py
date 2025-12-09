@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import BooleanField
 from django.utils.translation import gettext_lazy as _
 from general.models import USUARIO
 ##############################################################################
@@ -57,6 +58,7 @@ class POLITICA(models.Model):
 class ACTXCUR(models.Model):
     curso = models.ForeignKey(CURSO, on_delete=models.CASCADE, related_name="secciones")
     ORDEN_SECCION_CURSO = models.IntegerField()
+    NOMBRE_ACTXCUR = models.CharField(max_length=255, blank=True)
     FECHA_MODIFICACION_ACTXCUR = models.DateField(auto_now=True)
     FECHA_INGRESO_ACTXCUR = models.DateTimeField(auto_now_add=True)
     ESTADO_ACTXCUR = models.BooleanField(default=True)
@@ -184,11 +186,11 @@ class PDF_ACTIVIDAD(models.Model):
         max_length=255,
         verbose_name="URL del PDF"
     )
-
     FECHA_INGRESO_PDF_ACTIVIDAD = models.DateTimeField(
         auto_now_add=True,
         verbose_name="Fecha de subida"
     )
+    FECHA_MODIFICACION_PDF_ACTIVIDAD = models.DateField(auto_now=True)
 
     ESTADO_PDF_ACTIVIDAD = models.BooleanField(
         default=True,
@@ -197,11 +199,26 @@ class PDF_ACTIVIDAD(models.Model):
 
     class Meta:
         verbose_name = "PDF de actividad"
-        verbose_name_plural = "PDFs de actividad"
-        db_table = "PDF_ACTIVIDAD"
+        verbose_name_plural = "PDF de actividades"
 
     def __str__(self):
         return f"PDF - {self.actividad.NOMBRE_ACTIVIDAD}"
+
+class ACTXUSE(models.Model):
+    usuario = models.ForeignKey(USUARIO, on_delete=models.CASCADE)
+    actividad = models.ForeignKey(
+        ACTIVIDAD,
+        on_delete=models.CASCADE,
+        related_name="actividades_por_usuario"
+    )
+    COMPLETO_ACTXUSE = models.BooleanField(default=False)
+    ESTADO_ACTXUSE = models.BooleanField(default=True)
+    FECHA_INGRESO_ACTXUSE = models.DateTimeField(auto_now_add=True)
+    FECHA_MODIFICACION_ACTXUSE = models.DateTimeField(null=True, blank=True)
+
+    class Meta:
+        unique_together = ('usuario', 'actividad')
+
 
 ##############################################################################
 class OPINION_ACTIVIDAD(models.Model):
@@ -219,7 +236,7 @@ class OPINION_ACTIVIDAD(models.Model):
 
     DESCRIPCION_OPINION_ACTIVIDAD = models.CharField(max_length=255)
     PUNTUACION_OPINION_ACTIVIDAD = models.DecimalField(max_digits=4, decimal_places=2)
-
+    # FALTA LA AUTORELACION
     FECHA_MODIFICACION_OPINION_ACTIVIDAD = models.DateField(auto_now=True)
     FECHA_INGRESO_OPINION_ACTIVIDAD = models.DateTimeField(auto_now_add=True)
     ESTADO_OPINION_ACTIVIDAD = models.BooleanField(default=True)
@@ -243,10 +260,11 @@ class OPINION_FORO(models.Model):
         on_delete=models.CASCADE,
         related_name="opiniones"
     )
-
+    OPINION_OPINION_FORO = models.CharField(max_length=255, null=True, blank=True)
     FECHA_INGRESO_OPINION_FORO = models.DateTimeField(auto_now_add=True)
     FECHA_MODIFICACION_OPINION_FORO = models.DateField(auto_now=True)
     ESTADO_OPINION_FORO = models.BooleanField(default=True)
+    # FALTA LA AUTORELACION
 
     class Meta:
         verbose_name = _("Opinión de foro")

@@ -75,7 +75,7 @@ class USUARIO(AbstractBaseUser, PermissionsMixin):
 class AVATAR(models.Model):
     usuario = models.OneToOneField(USUARIO, on_delete=models.CASCADE, related_name="avatar")
 
-    URL_AVATAR_USER = models.CharField(max_length=250)
+    URL_AVATAR = models.CharField(max_length=250)
     FECHA_MODIFICACION_AVATAR = models.DateField(auto_now=True)
     FECHA_INGRESO_AVATAR = models.DateTimeField(auto_now_add=True)
     ESTADO_AVATAR = models.BooleanField(default=True)

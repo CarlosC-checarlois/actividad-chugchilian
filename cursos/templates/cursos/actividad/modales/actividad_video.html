@@ -1,0 +1,22 @@
+<div class="card border-0 shadow-sm rounded-4 mb-3">
+
+    <div class="ratio ratio-16x9 bg-dark rounded-top-4">
+        {% if actividad_actual.video %}
+            <iframe src="{{ actividad_actual.video.URL_VIDEO_ACTIVIDAD }}"
+                    allowfullscreen></iframe>
+        {% else %}
+            <div class="d-flex justify-content-center align-items-center text-white">
+                <p>No hay video disponible</p>
+            </div>
+        {% endif %}
+    </div>
+
+    <div class="p-3">
+        <h5 class="fw-bold">{{ actividad_actual.NOMBRE_ACTIVIDAD }}</h5>
+
+        {% for d in actividad_actual.descripciones.all %}
+            <p class="text-muted">{{ d.DESCRIPCION_DESCRIPCION_ACTIVIDAD }}</p>
+        {% endfor %}
+    </div>
+
+</div>

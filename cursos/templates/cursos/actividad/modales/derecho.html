@@ -1,0 +1,38 @@
+<div class="col-lg-4">
+    <div class="card border-0 shadow-sm rounded-4">
+        <div class="card-header bg-white fw-bold text-brown">
+            Contenido del curso
+        </div>
+
+        <div class="card-body sidebar-contenido">
+            {% for seccion in secciones %}
+                <div class="mb-3">
+                    <div class="fw-semibold mb-1">
+                        Ruta {{ seccion.ORDEN_SECCION_CURSO }} · {{ seccion.NOMBRE_ACTXCUR }}
+                    </div>
+
+                    <ul class="list-group list-group-flush">
+                        {% for actividad in seccion.actividades.all %}
+                            <li class="list-group-item py-2 px-2 small
+                                {% if actividad.id == actividad_actual.id %}bg-light border-start border-3 border-success{% endif %}">
+
+                                <a href="{% url 'curso_aprender' curso.id %}?actividad={{ actividad.id }}"
+                                   class="text-decoration-none d-flex justify-content-between align-items-center">
+
+                                    <span>
+                                        <i class="bi bi-play-circle me-1"></i>
+                                        {{ actividad.NOMBRE_ACTIVIDAD }}
+                                    </span>
+
+                                    <span class="text-muted">
+                                        {{ actividad.DURACION_TOTAL_ACTIVIDAD }} min
+                                    </span>
+                                </a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>

@@ -25,11 +25,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
-    # Tus apps personalizadas
+    #'jet',
+    #'jet.dashboard',
+    #'django.contrib.admin',
     'general',
     'cursos',
-    'dashboard',
+    'administrativo',
 ]
 
 # ========================

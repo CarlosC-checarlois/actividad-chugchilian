@@ -17,7 +17,9 @@ Including another URLconf
 # from django.contrib import admin
 from django.urls import path, include
 urlpatterns = [
+
     path('', include('general.urls')),
     path('cursos/', include('cursos.urls')),
-
+    #path('jet/', include('jet.urls')),
+    #path('jet/dashboard/', include('jet.dashboard.urls')),
 ]

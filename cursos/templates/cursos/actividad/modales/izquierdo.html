@@ -1,0 +1,19 @@
+<div class="col-lg-8">
+
+    {% if actividad_actual %}
+
+        {% if actividad_actual.tipo_actividad.NOMBRE_TIPO_ACTIVIDAD == "VIDEO" %}
+            {% include 'cursos/actividad/modales/actividad_video.html' %}
+        {% elif actividad_actual.tipo_actividad.NOMBRE_TIPO_ACTIVIDAD == "LECTURA" %}
+            {% include 'cursos/actividad/modales/actividad_lectura.html' %}
+        {% elif actividad_actual.tipo_actividad.NOMBRE_TIPO_ACTIVIDAD == "FORO" %}
+            {% include 'cursos/actividad/modales/actividad_foro.html' %}
+        {% else %}
+            <div class="alert alert-warning">Tipo de actividad no reconocido</div>
+        {% endif %}
+
+    {% else %}
+        <div class="alert alert-info">No hay actividad seleccionada</div>
+    {% endif %}
+
+</div>
