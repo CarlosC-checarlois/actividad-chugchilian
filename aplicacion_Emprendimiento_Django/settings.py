@@ -80,16 +80,29 @@ TEMPLATES = [
 # DATABASE
 # ========================
 # ========================
+#DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#        'NAME': 'EMPRENDIMIENTO_BASE_DE_DATOS',
+#        'USER': 'postgres',
+#        'PASSWORD': 'admin',
+#        'HOST': 'localhost',
+#        'PORT': '5432',
+#    }
+#}
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'EMPRENDIMIENTO_BASE_DE_DATOS',
-        'USER': 'postgres',
-        'PASSWORD': 'admin',
-        'HOST': 'localhost',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'integracion_bd',
+        'USER': 'integracion_bd_name',
+        'PASSWORD': 'S4UDm0NrDA4f2ODGigG2yuKiYZiZk5s0',
+        'HOST': 'dpg-d4snqnngi27c73bq8qeg-a.oregon-postgres.render.com',
         'PORT': '5432',
     }
 }
+# postgresql://integracion_bd_name:S4UDm0NrDA4f2ODGigG2yuKiYZiZk5s0@dpg-d4snqnngi27c73bq8qeg-a.oregon-postgres.render.com/integracion_bd
+# ========================
 # PASSWORD VALIDATION
 # ========================
 
@@ -154,8 +167,6 @@ AUTHENTICATION_BACKENDS = [
 ]
 JET_INDEX_DASHBOARD = 'aplicacion_Emprendimiento_Django.dashboard.CustomIndexDashboard'
 JET_APP_INDEX_DASHBOARD = 'aplicacion_Emprendimiento_Django.dashboard.CustomAppIndexDashboard'
-
-
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
