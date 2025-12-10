@@ -55,15 +55,25 @@ class USUARIO(AbstractBaseUser, PermissionsMixin):
     FECHA_NACIMIENTO_USUARIO = models.DateField()
 
     CORREO_USUARIO = models.EmailField(unique=True)
-
+    IS_SUPERUSER = models.BooleanField(default=False)
     IS_STAFF = models.BooleanField(default=False)
     IS_ACTIVE = models.BooleanField(default=True)
     DATE_JOINED = models.DateTimeField(default=timezone.now)
-
     objects = UsuarioManager()
-
     USERNAME_FIELD = 'CORREO_USUARIO'
     REQUIRED_FIELDS = ['PRIMER_NOMBRE_USUARIO', 'PRIMER_APELLIDO_USUARIO', 'APODO']
+
+    @property
+    def is_staff(self):
+        return self.IS_STAFF
+
+    @property
+    def is_active(self):
+        return self.IS_ACTIVE
+
+    @property
+    def is_superuser(self):
+        return self.IS_SUPERUSER
 
     class Meta:
         verbose_name = _("Usuario")

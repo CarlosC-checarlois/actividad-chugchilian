@@ -1,0 +1,71 @@
+{% if OPINION_ACTIVIDAD and OPINION_ACTIVIDAD.DATA %}
+
+<div class="card shadow-sm border-0 rounded-4">
+
+    <!-- HEADER -->
+    <div class="card-header bg-white d-flex justify-content-between">
+
+        <div>
+            <h6 class="fw-bold m-0">💬 Opiniones de estudiantes</h6>
+            <small class="text-muted">
+                {{ OPINION_ACTIVIDAD.DATA|length }} comentarios
+            </small>
+        </div>
+
+        <div class="text-end">
+            <strong>⭐ {{ OPINION_ACTIVIDAD.PROMEDIO_PUNTUACION_OPINION_ACTIVIDAD }}</strong>
+            <div class="small text-muted">Promedio</div>
+        </div>
+
+    </div>
+
+    <!-- BODY -->
+    <div class="card-body">
+
+        {% for opinion in OPINION_ACTIVIDAD.DATA %}
+        <div class="d-flex border-bottom pb-3 mb-3">
+
+            <!-- Avatar -->
+            <img src="{{ opinion.usuario__avatar__URL_AVATAR }}"
+                 class="rounded-circle me-3 shadow-sm"
+                 width="48"
+                 height="48">
+
+            <!-- Contenido -->
+            <div class="flex-grow-1">
+
+                <div class="d-flex justify-content-between">
+                    <strong>
+                        {{ opinion.usuario__PRIMER_NOMBRE_USUARIO }} {{ opinion.usuario__PRIMER_APELLIDO_USUARIO }}
+                    </strong>
+                    <small class="text-muted">
+                        {{ opinion.FECHA_INGRESO_OPINION_ACTIVIDAD|date:"d M Y" }}
+                    </small>
+                </div>
+
+                <small class="text-muted">@{{ opinion.usuario__APODO }}</small>
+
+                <div class="small text-warning mt-1">
+                    ⭐ {{ opinion.PUNTUACION_OPINION_ACTIVIDAD }}
+                </div>
+
+                <p class="mt-2 mb-0">
+                    {{ opinion.DESCRIPCION_OPINION_ACTIVIDAD }}
+                </p>
+
+            </div>
+
+        </div>
+        {% endfor %}
+
+    </div>
+</div>
+
+{% else %}
+
+<div class="alert alert-light text-center rounded-4">
+    Aún no hay comentarios en esta actividad.<br>
+    <small class="text-muted">Sé el primero en comentar</small>
+</div>
+
+{% endif %}

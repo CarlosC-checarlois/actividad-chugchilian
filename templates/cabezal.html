@@ -77,41 +77,44 @@ scroll-behavior: smooth;
                                 Contacto
                             </a>
                         </li>
-{% if user.is_authenticated %}
+                        {% if user.is_authenticated %}
 
-    {% if not user.is_superuser %}
-        <li class="nav-item">
-            <a class="nav-link {% if 'aprendizaje' in request.path %}active{% endif %}"
-               href="{% url 'mi_aprendizaje' %}">
-                📚 Mi aprendizaje
-            </a>
-        </li>
-    {% endif %}
+                            {% if not user.is_superuser %}
+                                <li class="nav-item">
+                                    <a class="nav-link {% if 'aprendizaje' in request.path %}active{% endif %}"
+                                       href="{% url 'mi_aprendizaje' %}">
+                                        📚 Mi aprendizaje
+                                    </a>
+                                </li>
 
-    <li class="nav-item dropdown">
-        <a class="btn btn-warning dropdown-toggle rounded-pill"
-           href="#" role="button"
-           data-bs-toggle="dropdown">
-            {{ user.PRIMER_NOMBRE_USUARIO }}
-        </a>
+                                {% block insertar_progreso_curso %}
+                                {% endblock %}
+                            {% endif %}
 
-        <ul class="dropdown-menu dropdown-menu-end">
-            <li>
-                <a class="dropdown-item" href="{% url 'logout' %}">Cerrar sesión</a>
-            </li>
-        </ul>
-    </li>
+                            <li class="nav-item dropdown">
+                                <a class="btn btn-warning dropdown-toggle rounded-pill"
+                                   href="#" role="button"
+                                   data-bs-toggle="dropdown">
+                                    {{ user.PRIMER_NOMBRE_USUARIO }}
+                                </a>
 
-{% else %}
+                                <ul class="dropdown-menu dropdown-menu-end">
+                                    <li>
+                                        <a class="dropdown-item" href="{% url 'logout' %}">Cerrar sesión</a>
+                                    </li>
+                                </ul>
+                            </li>
 
-    <li class="nav-item">
-        <a href="{% url 'login' %}"
-           class="btn btn-outline-warning fw-semibold px-4 py-2 rounded-pill">
-            Iniciar sesión
-        </a>
-    </li>
+                        {% else %}
 
-{% endif %}
+                            <li class="nav-item">
+                                <a href="{% url 'login' %}"
+                                   class="btn btn-outline-warning fw-semibold px-4 py-2 rounded-pill">
+                                    Iniciar sesión
+                                </a>
+                            </li>
+
+                        {% endif %}
 
                     </ul>
                 </div>

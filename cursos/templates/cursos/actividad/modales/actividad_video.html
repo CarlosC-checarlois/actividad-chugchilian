@@ -1,8 +1,8 @@
 <div class="card border-0 shadow-sm rounded-4 mb-3">
 
     <div class="ratio ratio-16x9 bg-dark rounded-top-4">
-        {% if actividad_actual.video %}
-            <iframe src="{{ actividad_actual.video.URL_VIDEO_ACTIVIDAD }}"
+        {% if VIDEO_ACTIVIDAD %}
+            <iframe src="{{ VIDEO_ACTIVIDAD.URL_VIDEO_ACTIVIDAD }}"
                     allowfullscreen></iframe>
         {% else %}
             <div class="d-flex justify-content-center align-items-center text-white">

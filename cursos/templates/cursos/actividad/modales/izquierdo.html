@@ -1,19 +1,78 @@
 <div class="col-lg-8">
 
-    {% if actividad_actual %}
+{% if actividad_actual %}
 
+<!-- ============================= -->
+<!-- TARJETA PRINCIPAL DE ACTIVIDAD -->
+<!-- ============================= -->
+<div class="card shadow-sm border-0 rounded-4 mb-4">
+
+    <div class="card-body p-4">
+
+        <!-- CABECERA -->
+        <div class="d-flex justify-content-between align-items-start mb-3">
+
+            <div>
+                <span class="badge bg-primary mb-2">
+                    {{ TIPO_ACTIVIDAD.NOMBRE_TIPO_ACTIVIDAD }}
+                </span>
+
+                <h4 class="fw-bold text-brown">
+                    {{ ACTIVIDAD.NOMBRE_ACTIVIDAD }}
+                </h4>
+
+                <div class="text-muted small">
+                    Ruta {{ actividad_actual.seccion.ORDEN_SECCION_CURSO }} ·
+                    {{ actividad_actual.seccion.NOMBRE_ACTXCUR }}
+                </div>
+            </div>
+
+            <div class="text-end">
+                <span class="badge bg-light text-dark shadow-sm">
+                    ⏱ {{ ACTIVIDAD.DURACION_TOTAL_ACTIVIDAD }} min
+                </span>
+
+                {% if OPINION_ACTIVIDAD %}
+                <div class="mt-1 small text-muted">
+                    ⭐ {{ OPINION_ACTIVIDAD.PROMEDIO_PUNTUACION_OPINION_ACTIVIDAD|default:"0.0" }}
+                </div>
+                {% endif %}
+            </div>
+
+        </div>
+
+        <hr>
+
+        <!-- CONTENIDO SEGÚN TIPO -->
         {% if actividad_actual.tipo_actividad.NOMBRE_TIPO_ACTIVIDAD == "VIDEO" %}
             {% include 'cursos/actividad/modales/actividad_video.html' %}
+
         {% elif actividad_actual.tipo_actividad.NOMBRE_TIPO_ACTIVIDAD == "LECTURA" %}
             {% include 'cursos/actividad/modales/actividad_lectura.html' %}
+
         {% elif actividad_actual.tipo_actividad.NOMBRE_TIPO_ACTIVIDAD == "FORO" %}
             {% include 'cursos/actividad/modales/actividad_foro.html' %}
+
         {% else %}
-            <div class="alert alert-warning">Tipo de actividad no reconocido</div>
+            <div class="alert alert-warning">
+                Tipo de actividad no reconocido
+            </div>
         {% endif %}
 
-    {% else %}
-        <div class="alert alert-info">No hay actividad seleccionada</div>
-    {% endif %}
+    </div>
+</div>
+
+<!-- ============================= -->
+<!-- TARJETA DE COMENTARIOS -->
+<!-- ============================= -->
+<div>
+    {% include 'cursos/actividad/modales/izquierdo_inferior.html' %}
+</div>
+
+{% else %}
+<div class="alert alert-info">
+    No hay actividad seleccionada
+</div>
+{% endif %}
 
 </div>

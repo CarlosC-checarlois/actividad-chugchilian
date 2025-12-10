@@ -1,0 +1,57 @@
+<div class="card shadow-sm rounded-4 mb-4">
+
+    <!-- TÍTULO -->
+    <div class="card-header fw-bold text-brown">
+        {{ ACTIVIDAD.NOMBRE_ACTIVIDAD }}
+        <span class="float-end text-muted small">
+            ⏱ {{ ACTIVIDAD.DURACION_TOTAL_ACTIVIDAD }} min
+        </span>
+    </div>
+
+    <div class="card-body">
+
+        <!-- ================= -->
+        <!-- IMÁGENES -->
+        <!-- ================= -->
+        {% if IMAGEN_ACTIVIDAD %}
+            <div class="mb-4 text-center">
+                {% for img in IMAGEN_ACTIVIDAD %}
+                    <img src="{{ img.URL_IMAGEN_ACTIVIDAD }}"
+                         class="img-fluid rounded mb-2"
+                         style="max-height:350px;">
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <!-- ================= -->
+        <!-- DESCRIPCIONES -->
+        <!-- ================= -->
+        {% if DESCRIPCION_ACTIVIDAD %}
+            <ul class="list-group mb-3">
+                {% for desc in DESCRIPCION_ACTIVIDAD %}
+                <li class="list-group-item">
+                    {{ desc.DESCRIPCION_DESCRIPCION_ACTIVIDAD }}
+                </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+        <!-- ================= -->
+        <!-- PDF -->
+        <!-- ================= -->
+        {% if PDF_ACTIVIDAD %}
+            <div class="mt-3">
+                <h6 class="fw-bold">📄 Material descargable</h6>
+
+                {% for pdf in PDF_ACTIVIDAD %}
+                    <a href="{{ pdf.URL_PDF_ACTIVIDAD }}"
+                       class="btn btn-outline-primary btn-sm"
+                       target="_blank">
+                       Descargar PDF
+                    </a>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+    </div>
+</div>

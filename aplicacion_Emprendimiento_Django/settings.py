@@ -20,18 +20,19 @@ ALLOWED_HOSTS = ["*"]
 # ========================
 
 INSTALLED_APPS = [
+    'jet',
+    'jet.dashboard',
+    'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    #'jet',
-    #'jet.dashboard',
-    #'django.contrib.admin',
     'general',
     'cursos',
     'administrativo',
 ]
+
 
 # ========================
 # MIDDLEWARE
@@ -124,9 +125,6 @@ STATIC_ROOT = BASE_DIR / "staticfiles"
 # DEFAULTS
 # ========================
 
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-
 X_FRAME_OPTIONS = 'ALLOWALL'
 # ========================
 # OPENAI API CONFIG
@@ -147,4 +145,17 @@ AWS_PASSWORD_KEY = ""
 AWS_SECRET_USS = ""
 AWS_BUCKET_NAME = ""
 AWS_S3_CUSTOM_DOMAIN = ""
-AUTH_USER_MODEL = 'general.Usuario'
+AUTH_USER_MODEL = 'general.USUARIO'
+JET_THEMES = [
+    {"theme": "default", "color": "#47bac1", "title": "Default"},
+]
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+]
+JET_INDEX_DASHBOARD = 'aplicacion_Emprendimiento_Django.dashboard.CustomIndexDashboard'
+JET_APP_INDEX_DASHBOARD = 'aplicacion_Emprendimiento_Django.dashboard.CustomAppIndexDashboard'
+
+
+
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'

@@ -149,6 +149,7 @@ class DESCRIPCION_ACTIVIDAD(models.Model):
     FECHA_MODIFICACION_DESCRIPCION_ACTIVIDAD = models.DateField(auto_now=True)
     FECHA_INGRESO_DESCRIPCION_ACTIVIDAD = models.DateTimeField(auto_now_add=True)
     ESTADO_DESCRIPCION_ACTIVIDAD = models.BooleanField(default=True)
+    ORDEN_DESCRIPCION = models.PositiveIntegerField(default=1)
 
     class Meta:
         verbose_name = _("Descripción de actividad")

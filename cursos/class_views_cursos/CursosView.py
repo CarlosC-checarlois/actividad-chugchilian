@@ -17,7 +17,10 @@ from cursos.models import (
     ACTIVIDAD, VIDEO_ACTIVIDAD, PDF_ACTIVIDAD, IMAGEN_ACTIVIDAD,
     DESCRIPCION_ACTIVIDAD, OPINION_ACTIVIDAD, ACTXUSE, FORO
 )
+from django.contrib.auth.decorators import login_required
 
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 class CursosView(TemplateView):
     template_name = 'cursos/catalogo/index.html'
 
@@ -136,162 +139,18 @@ class InscribirCursoView(LoginRequiredMixin, View):
         return redirect("mi_aprendizaje")
 
 
-
-def obtener_json_actividad_python(id_actividad, usuario=None):
-    DEFAULT_AVATAR_URL = "/static/general/images/usuarios/default_avatar.png"  # <- cámbialo si quieres
-
-    actividad = ACTIVIDAD.objects.select_related(
+def obtener_actividad_base(id_actividad):
+    return ACTIVIDAD.objects.select_related(
         'tipo_actividad',
-        'seccion'
+        'seccion',
+        'seccion__curso'
     ).get(id=id_actividad)
-
-    # ======================
-    # VIDEO_ACTIVIDAD
-    # ======================
-    VIDEO_ACTIVIDAD_DATA = list(
-        VIDEO_ACTIVIDAD.objects.filter(
-            actividad=actividad,
-            ESTADO_VIDEO_ACTIVIDAD=True
-        ).values(
-            'id',
-            'actividad_id',
-            'URL_VIDEO_ACTIVIDAD',
-            'FECHA_INGRESO_VIDEO_ACTIVIDAD',
-            'FECHA_MODIFICACION_VIDEO_ACTIVIDAD',
-            'ESTADO_VIDEO_ACTIVIDAD'
-        )
-    )
-
-    # ======================
-    # IMAGEN_ACTIVIDAD
-    # ======================
-    IMAGEN_ACTIVIDAD_DATA = list(
-        IMAGEN_ACTIVIDAD.objects.filter(
-            actividad=actividad,
-            ESTADO_IMAGEN_ACTIVIDAD=True
-        ).values(
-            'id',
-            'actividad_id',
-            'URL_IMAGEN_ACTIVIDAD',
-            'FECHA_INGRESO_IMAGEN_ACTIVIDAD',
-            'FECHA_MODIFICACION_IMAGEN_ACTIVIDAD',
-            'ESTADO_IMAGEN_ACTIVIDAD'
-        )
-    )
-
-    # ======================
-    # PDF_ACTIVIDAD
-    # ======================
-    PDF_ACTIVIDAD_DATA = list(
-        PDF_ACTIVIDAD.objects.filter(
-            actividad=actividad,
-            ESTADO_PDF_ACTIVIDAD=True
-        ).values(
-            'id',
-            'actividad_id',
-            'URL_PDF_ACTIVIDAD',
-            'FECHA_INGRESO_PDF_ACTIVIDAD',
-            'FECHA_MODIFICACION_PDF_ACTIVIDAD',
-            'ESTADO_PDF_ACTIVIDAD'
-        )
-    )
-
-    # ======================
-    # DESCRIPCION_ACTIVIDAD
-    # ======================
-    DESCRIPCION_ACTIVIDAD_DATA = list(
-        DESCRIPCION_ACTIVIDAD.objects.filter(
-            actividad=actividad,
-            ESTADO_DESCRIPCION_ACTIVIDAD=True
-        ).values(
-            'id',
-            'actividad_id',
-            'DESCRIPCION_DESCRIPCION_ACTIVIDAD',
-            'FECHA_INGRESO_DESCRIPCION_ACTIVIDAD',
-            'FECHA_MODIFICACION_DESCRIPCION_ACTIVIDAD',
-            'ESTADO_DESCRIPCION_ACTIVIDAD'
-        )
-    )
-
-    # ======================
-    # FORO
-    # ======================
-    FORO_DATA = FORO.objects.filter(
-        actividad=actividad,
-        ESTADO_FORO=True
-    ).values(
-        'id',
-        'actividad_id',
-        'NOMBRE_FORO',
-        'DESCRIPCION_FORO',
-        'FECHA_INGRESO_FORO',
-        'FECHA_MODIFICACION_FORO',
-        'ESTADO_FORO'
-    ).first()
-
-    # ======================
-    # OPINION_ACTIVIDAD
-    # ======================
-    OPINION_ACTIVIDAD_DATA = list(
-        OPINION_ACTIVIDAD.objects.filter(
-            actividad=actividad,
-            ESTADO_OPINION_ACTIVIDAD=True
-        )
-        .select_related('usuario__avatar')  # seguimos la relación hasta AVATAR
-        .values(
-            'id',
-            'usuario_id',
-            'usuario__PRIMER_NOMBRE_USUARIO',
-            'usuario__PRIMER_APELLIDO_USUARIO',
-            'usuario__APODO',
-
-            # CAMPOS DEL AVATAR
-            'usuario__avatar__id',
-            'usuario__avatar__URL_AVATAR',
-
-            'DESCRIPCION_OPINION_ACTIVIDAD',
-            'PUNTUACION_OPINION_ACTIVIDAD',
-            'FECHA_INGRESO_OPINION_ACTIVIDAD',
-            'FECHA_MODIFICACION_OPINION_ACTIVIDAD',
-            'ESTADO_OPINION_ACTIVIDAD'
-        )
-    )
-    for op in OPINION_ACTIVIDAD_DATA:
-        if op.get('usuario__avatar__URL_AVATAR') is None:
-            op['usuario__avatar__URL_AVATAR'] = DEFAULT_AVATAR_URL
-
-    PROMEDIO_PUNTUACION = OPINION_ACTIVIDAD.objects.filter(
-        actividad=actividad,
-        ESTADO_OPINION_ACTIVIDAD=True
-    ).aggregate(
-        AVG_PUNTUACION_OPINION_ACTIVIDAD=Avg('PUNTUACION_OPINION_ACTIVIDAD')
-    )['AVG_PUNTUACION_OPINION_ACTIVIDAD'] or 0
-
-    # ======================
-    # ACTXUSE
-    # ======================
-    ACTXUSE_DATA = None
-    if usuario:
-        ACTXUSE_DATA = ACTXUSE.objects.filter(
-            usuario=usuario,
-            actividad=actividad
-        ).values(
-            'id',
-            'usuario_id',
-            'actividad_id',
-            'COMPLETO_ACTXUSE',
-            'ESTADO_ACTXUSE',
-            'FECHA_INGRESO_ACTXUSE',
-            'FECHA_MODIFICACION_ACTXUSE'
-        ).first()
-
-    # ======================
-    # ACTIVIDAD CENTRAL
-    # ======================
-    ACTIVIDAD_DATA = {
+def construir_actividad_json(actividad):
+    return {
         "id": actividad.id,
         "tipo_actividad_id": actividad.tipo_actividad_id,
         "seccion_id": actividad.seccion_id,
+        "curso_id": actividad.seccion.curso_id,
         "NOMBRE_ACTIVIDAD": actividad.NOMBRE_ACTIVIDAD,
         "DURACION_TOTAL_ACTIVIDAD": float(actividad.DURACION_TOTAL_ACTIVIDAD),
         "FECHA_MODIFICACION_ACTIVIDAD": actividad.FECHA_MODIFICACION_ACTIVIDAD,
@@ -299,44 +158,136 @@ def obtener_json_actividad_python(id_actividad, usuario=None):
         "ESTADO_ACTIVIDAD": actividad.ESTADO_ACTIVIDAD,
         "PUNTUACION_GENERAL_ACTIVIDAD": actividad.PUNTUACION_GENERAL_ACTIVIDAD
     }
-
-    # ======================
-    # TIPO_ACTIVIDAD (TABLA RELACIONADA)
-    # ======================
-    TIPO_ACTIVIDAD_DATA = {
-        "id": actividad.tipo_actividad.id,
-        "NOMBRE_TIPO_ACTIVIDAD": actividad.tipo_actividad.NOMBRE_TIPO_ACTIVIDAD,
-        "FECHA_MODIFICACION_TIPO_ACTIVIDAD": actividad.tipo_actividad.FECHA_MODIFICACION_TIPO_ACTIVIDAD,
-        "FECHA_INGRESO_TIPO_ACTIVIDAD": actividad.tipo_actividad.FECHA_INGRESO_TIPO_ACTIVIDAD,
-        "ESTADO_TIPO_ACTIVIDAD": actividad.tipo_actividad.ESTADO_TIPO_ACTIVIDAD,
-    }
-
-    # ======================
-    # JSON FINAL
-    # ======================
+def construir_tipo_actividad_json(actividad):
+    tipo = actividad.tipo_actividad
     return {
-        "ACTIVIDAD": ACTIVIDAD_DATA,
-        "TIPO_ACTIVIDAD": TIPO_ACTIVIDAD_DATA,
-        "VIDEO_ACTIVIDAD": VIDEO_ACTIVIDAD_DATA,
-        "IMAGEN_ACTIVIDAD": IMAGEN_ACTIVIDAD_DATA,
-        "PDF_ACTIVIDAD": PDF_ACTIVIDAD_DATA,
-        "DESCRIPCION_ACTIVIDAD": DESCRIPCION_ACTIVIDAD_DATA,
-        "FORO": FORO_DATA,
-        "OPINION_ACTIVIDAD": {
-            "DATA": OPINION_ACTIVIDAD_DATA,
-            "PROMEDIO_PUNTUACION_OPINION_ACTIVIDAD": round(PROMEDIO_PUNTUACION, 2)
-        },
-        "ACTXUSE": ACTXUSE_DATA
+        "id": tipo.id,
+        "NOMBRE_TIPO_ACTIVIDAD": tipo.NOMBRE_TIPO_ACTIVIDAD,
+        "FECHA_MODIFICACION_TIPO_ACTIVIDAD": tipo.FECHA_MODIFICACION_TIPO_ACTIVIDAD,
+        "FECHA_INGRESO_TIPO_ACTIVIDAD": tipo.FECHA_INGRESO_TIPO_ACTIVIDAD,
+        "ESTADO_TIPO_ACTIVIDAD": tipo.ESTADO_TIPO_ACTIVIDAD
+    }
+def obtener_videos(actividad):
+    return list(VIDEO_ACTIVIDAD.objects.filter(
+        actividad=actividad, ESTADO_VIDEO_ACTIVIDAD=True
+    ).values())
+
+
+def obtener_imagenes(actividad):
+    return list(IMAGEN_ACTIVIDAD.objects.filter(
+        actividad=actividad, ESTADO_IMAGEN_ACTIVIDAD=True
+    ).values())
+
+
+def obtener_pdfs(actividad):
+    return list(PDF_ACTIVIDAD.objects.filter(
+        actividad=actividad, ESTADO_PDF_ACTIVIDAD=True
+    ).values())
+
+
+def obtener_descripciones(actividad):
+    return list(
+        DESCRIPCION_ACTIVIDAD.objects
+        .filter(actividad=actividad, ESTADO_DESCRIPCION_ACTIVIDAD=True)
+        .order_by("ORDEN_DESCRIPCION")
+        .values()
+    )
+
+
+
+def obtener_foro(actividad):
+    return FORO.objects.filter(
+        actividad=actividad, ESTADO_FORO=True
+    ).values().first()
+def obtener_opiniones(actividad, default_avatar):
+    data = list(
+        OPINION_ACTIVIDAD.objects.filter(
+            actividad=actividad,
+            ESTADO_OPINION_ACTIVIDAD=True
+        ).select_related('usuario__avatar').values(
+            'id',
+            'usuario_id',
+            'usuario__PRIMER_NOMBRE_USUARIO',
+            'usuario__PRIMER_APELLIDO_USUARIO',
+            'usuario__APODO',
+            'usuario__avatar__URL_AVATAR',
+            'DESCRIPCION_OPINION_ACTIVIDAD',
+            'PUNTUACION_OPINION_ACTIVIDAD',
+            'FECHA_INGRESO_OPINION_ACTIVIDAD',
+            'FECHA_MODIFICACION_OPINION_ACTIVIDAD'
+        )
+    )
+
+    for op in data:
+        if not op.get('usuario__avatar__URL_AVATAR'):
+            op['usuario__avatar__URL_AVATAR'] = default_avatar
+
+    return {
+        "DATA": data,
+        "PROMEDIO_PUNTUACION_OPINION_ACTIVIDAD": calcular_promedio(actividad)
+    }
+def calcular_promedio(actividad):
+    return round(
+        OPINION_ACTIVIDAD.objects.filter(
+            actividad=actividad,
+            ESTADO_OPINION_ACTIVIDAD=True
+        ).aggregate(avg=Avg('PUNTUACION_OPINION_ACTIVIDAD'))['avg'] or 0,
+        2
+    )
+def obtener_actividad_usuario(usuario, actividad):
+    if not usuario:
+        return []
+
+    curso = actividad.seccion.curso
+
+    return list(
+        ACTXUSE.objects.filter(
+            usuario=usuario,
+            actividad__seccion__curso=curso
+        ).select_related('actividad').values(
+            'id',
+            'actividad_id',
+            'actividad__NOMBRE_ACTIVIDAD',
+            'COMPLETO_ACTXUSE',
+            'ESTADO_ACTXUSE'
+        )
+    )
+
+
+def calcular_progreso(usuario, actividad):
+    if not usuario:
+        return 0
+
+    actxuse = obtener_actividad_usuario(usuario, actividad)
+
+    total = len(actxuse)
+    completadas = sum(1 for a in actxuse if a['COMPLETO_ACTXUSE'])
+
+    return round((completadas / total) * 100, 2) if total else 0
+
+
+def obtener_json_actividad_python(id_actividad, usuario=None):
+    DEFAULT_AVATAR_URL = "/static/general/images/usuarios/default_avatar.png"
+
+    actividad = obtener_actividad_base(id_actividad)
+
+    return {
+        "ACTIVIDAD": construir_actividad_json(actividad),
+        "TIPO_ACTIVIDAD": construir_tipo_actividad_json(actividad),
+        "VIDEO_ACTIVIDAD": obtener_videos(actividad),
+        "IMAGEN_ACTIVIDAD": obtener_imagenes(actividad),
+        "PDF_ACTIVIDAD": obtener_pdfs(actividad),
+        "DESCRIPCION_ACTIVIDAD": obtener_descripciones(actividad),
+        "FORO": obtener_foro(actividad),
+        "OPINION_ACTIVIDAD": obtener_opiniones(actividad, DEFAULT_AVATAR_URL),
+        "ACTXUSE": obtener_actividad_usuario(usuario, actividad),
+        "PROGRESO_CURSO": calcular_progreso(usuario, actividad),
     }
 
 class CursoAprenderView(LoginRequiredMixin, View):
     template_name = 'cursos/actividad/index.html'
 
     def get(self, request, id):
-
-        # ======================
-        # PANEL GENERAL (CURSO)
-        # ======================
         curso = get_object_or_404(CURSO, id=id, ESTADO_CURSO=True)
 
         inscrito = CURXUSE.objects.filter(
@@ -349,9 +300,6 @@ class CursoAprenderView(LoginRequiredMixin, View):
             messages.warning(request, "Primero debes inscribirte en este curso.")
             return redirect('curso_detalle', id=id)
 
-        # ======================
-        # PANEL DERECHO (ORM)
-        # ======================
         secciones = (
             ACTXCUR.objects
             .filter(curso=curso, ESTADO_ACTXCUR=True)
@@ -359,45 +307,63 @@ class CursoAprenderView(LoginRequiredMixin, View):
             .order_by('ORDEN_SECCION_CURSO')
         )
 
-        # ======================
-        # PANEL IZQUIERDO (PROCEDURE)
-        # ======================
         actividad_id = request.GET.get("actividad")
 
         if actividad_id:
             actividad = get_object_or_404(ACTIVIDAD, id=actividad_id, seccion__curso=curso)
         else:
             primera = secciones.first()
-            actividad = primera.actividades.first() if primera else None
-
+            actividad = primera.actividades.first()
 
         actividad_json = obtener_json_actividad_python(
             actividad.id,
             request.user
         )
-        # ======================
-        # MÉTRICAS
-        # ======================
-        total_actividades = ACTIVIDAD.objects.filter(seccion__curso=curso).count()
-        progreso_porcentaje = 0  # luego lo automatizas
 
-        # ======================
-        # CONTEXTO FINAL
-        # ======================
+        ACTXUSE_MAP = {
+            int(item["actividad_id"]): bool(item["COMPLETO_ACTXUSE"])
+            for item in actividad_json.get("ACTXUSE", [])
+        }
+
         context = {
-            'curso': curso,
-            'secciones': secciones,
-            'actividad_actual': actividad,
-            'actividad_json': actividad_json,
-            'total_actividades': total_actividades,
-            'progreso_porcentaje': progreso_porcentaje,
+            "curso": curso,
+            "secciones": secciones,
+            "actividad_actual": actividad,
+
+            "ACTIVIDAD": actividad_json.get("ACTIVIDAD"),
+            "TIPO_ACTIVIDAD": actividad_json.get("TIPO_ACTIVIDAD"),
+            "VIDEO_ACTIVIDAD": actividad_json.get("VIDEO_ACTIVIDAD"),
+            "IMAGEN_ACTIVIDAD": actividad_json.get("IMAGEN_ACTIVIDAD"),
+            "PDF_ACTIVIDAD": actividad_json.get("PDF_ACTIVIDAD"),
+            "DESCRIPCION_ACTIVIDAD": actividad_json.get("DESCRIPCION_ACTIVIDAD"),
+            "FORO": actividad_json.get("FORO"),
+            "OPINION_ACTIVIDAD": actividad_json.get("OPINION_ACTIVIDAD"),
+            "PROGRESO_CURSO": round(actividad_json.get("PROGRESO_CURSO",0),2),
+
+            "ACTXUSE_MAP": ACTXUSE_MAP,
         }
 
         return render(request, self.template_name, context)
 
+@login_required
+@csrf_exempt
+def marcar_actividad(request):
+    if request.method == "POST":
+        actividad_id = request.POST.get("actividad_id")
+        completado = request.POST.get("completado") == "true"
 
+        act = ACTIVIDAD.objects.get(id=actividad_id)
 
+        actxuse, _ = ACTXUSE.objects.get_or_create(
+            usuario=request.user,
+            actividad=act,
+            defaults={"ESTADO_ACTXUSE": True}
+        )
 
+        actxuse.COMPLETO_ACTXUSE = completado
+        actxuse.save()
+
+        return JsonResponse({"ok": True})
 
 class ActividadJsonTestView(View):
     def get(self, request, id_actividad):

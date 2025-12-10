@@ -1,0 +1,41 @@
+<div class="card border-0 shadow-sm rounded-4">
+
+    <!-- SELECTOR -->
+    <div class="card-header bg-white border-bottom">
+        <ul class="nav nav-pills nav-fill" id="tabActividad">
+
+            <li class="nav-item">
+                <button class="nav-link active" id="btnContenido">
+                    📘 Descripción
+                </button>
+            </li>
+
+            <li class="nav-item">
+                <button class="nav-link" id="btnComentarios">
+                    💬 Opiniones ({{ OPINION_ACTIVIDAD.DATA|length|default:"0" }})
+                </button>
+            </li>
+
+        </ul>
+    </div>
+
+    <!-- CONTENIDOS -->
+    <div class="card-body">
+
+        <!-- DESCRIPCIÓN -->
+        <div id="tabContenido">
+
+            {% include 'cursos/actividad/modales/descripcion_curso.html' %}
+
+        </div>
+
+        <!-- COMENTARIOS -->
+        <div id="tabComentariosContent" class="d-none">
+
+            {% include 'cursos/actividad/modales/opiniones_actividad.html' %}
+
+        </div>
+
+    </div>
+
+</div>

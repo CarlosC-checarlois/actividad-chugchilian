@@ -1,38 +1,79 @@
-<div class="col-lg-4">
-    <div class="card border-0 shadow-sm rounded-4">
-        <div class="card-header bg-white fw-bold text-brown">
+{% load static %}
+{% load custom_filters %}
+
+<div class="col-lg-4 d-flex">
+<div class="card border-0 shadow-sm rounded-4 w-100 h-100 d-flex flex-column">
+
+        <!-- HEADER -->
+        <div class="card-header fw-bold text-brown bg-white">
             Contenido del curso
         </div>
 
-        <div class="card-body sidebar-contenido">
-            {% for seccion in secciones %}
-                <div class="mb-3">
-                    <div class="fw-semibold mb-1">
-                        Ruta {{ seccion.ORDEN_SECCION_CURSO }} · {{ seccion.NOMBRE_ACTXCUR }}
+        <!-- BODY -->
+<div class="card-body sidebar-contenido flex-grow-1">
+
+            <!-- BOTÓN OPCIONAL (en el futuro) -->
+            <!-- <small class="text-muted">Todas las rutas abiertas</small> -->
+
+            <div class="accordion" id="accordionSecciones">
+
+                {% for seccion in secciones %}
+
+                <div class="accordion-item border-0 mb-3">
+
+                    <!-- TÍTULO DE RUTA (YA NO COLAPSA) -->
+                    <h2 class="accordion-header">
+                        <button class="accordion-button bg-light fw-semibold">
+                            Ruta {{ seccion.ORDEN_SECCION_CURSO }} · {{ seccion.NOMBRE_ACTXCUR }}
+                        </button>
+                    </h2>
+
+                    <!-- CONTENIDO SIEMPRE VISIBLE -->
+                    <div class="accordion-collapse show">
+                        <div class="accordion-body p-0">
+
+                            <ul class="list-group list-group-flush">
+
+                                {% for actividad in seccion.actividades.all %}
+
+                                <li class="list-group-item d-flex align-items-center
+                                           {% if actividad.id == actividad_actual.id %}
+                                               bg-light border-start border-3 border-success fw-semibold
+                                           {% endif %}">
+
+                                    <!-- ✅ CHECKBOX -->
+                                    <div class="form-check me-2">
+                                        <input type="checkbox"
+                                               class="form-check-input chk-actividad"
+                                               data-id="{{ actividad.id }}"
+                                               {% if ACTXUSE_MAP|get_item:actividad.id %}checked{% endif %}>
+                                    </div>
+
+                                    <!-- ✅ LINK -->
+                                    <div class="d-flex justify-content-between align-items-center w-100">
+                                        <a href="{% url 'curso_aprender' curso.id %}?actividad={{ actividad.id }}"
+                                           class="text-decoration-none text-body flex-grow-1">
+                                            {{ actividad.NOMBRE_ACTIVIDAD }}
+                                        </a>
+
+                                        <small class="text-muted ms-2">
+                                            {{ actividad.DURACION_TOTAL_ACTIVIDAD }} min
+                                        </small>
+                                    </div>
+
+                                </li>
+                                {% endfor %}
+
+                            </ul>
+
+                        </div>
                     </div>
 
-                    <ul class="list-group list-group-flush">
-                        {% for actividad in seccion.actividades.all %}
-                            <li class="list-group-item py-2 px-2 small
-                                {% if actividad.id == actividad_actual.id %}bg-light border-start border-3 border-success{% endif %}">
-
-                                <a href="{% url 'curso_aprender' curso.id %}?actividad={{ actividad.id }}"
-                                   class="text-decoration-none d-flex justify-content-between align-items-center">
-
-                                    <span>
-                                        <i class="bi bi-play-circle me-1"></i>
-                                        {{ actividad.NOMBRE_ACTIVIDAD }}
-                                    </span>
-
-                                    <span class="text-muted">
-                                        {{ actividad.DURACION_TOTAL_ACTIVIDAD }} min
-                                    </span>
-                                </a>
-                            </li>
-                        {% endfor %}
-                    </ul>
                 </div>
-            {% endfor %}
+
+                {% endfor %}
+
+            </div>
         </div>
     </div>
 </div>
