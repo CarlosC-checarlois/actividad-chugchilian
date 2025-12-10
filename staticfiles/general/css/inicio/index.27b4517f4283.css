@@ -1,0 +1,398 @@
+/* ================================
+   ESTILOS PRINCIPALES CHUGCHILLIAN
+   ================================ */
+
+/* ====== PALETA DE COLORES ====== */
+:root {
+  --color-tierra: #8B5E3C;
+  --color-bosque: #3E7C17;
+  --color-claro: #F5F3E7;
+  --color-oscuro: #2F2F2F;
+  --color-dorado: #D4A373;
+}
+
+/* ====== CONFIGURACIÓN GLOBAL ====== */
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Kaushan+Script&family=Quicksand:wght@400;600&display=swap');
+
+body {
+  font-family: 'Quicksand', sans-serif;
+  background-color: var(--color-claro);
+  color: var(--color-oscuro);
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+}
+
+/* Enlaces */
+a {
+  color: var(--color-bosque);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Botones base */
+.btn-warning {
+  background-color: var(--color-dorado);
+  border: none;
+}
+
+.btn-warning:hover {
+  background-color: #e2b585;
+}
+
+/* Animación general */
+section {
+  animation: fadeIn 1s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ================================
+   SECCIÓN INICIO
+   ================================ */
+.home_inicio_estilo {
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 90vh;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+}
+
+.imagen_home_inicio_estilo {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  filter: brightness(60%);
+  object-fit: cover;
+    z-index: -1;
+  filter: brightness(60%);
+  animation: shakeSlow 20s infinite ease-in-out;
+  transform-origin: center;
+}
+
+.contenido_home_inicio_estilo {
+  min-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Tipografía artística */
+.titulo_home_inicio_estilo {
+  font-family: 'Pacifico', cursive;
+  font-size: 3rem;
+  color: #fff;
+  text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.7);
+  animation: fadeInDown 1.5s ease;
+}
+
+.texto_home_inicio_estilo {
+  font-family: 'Kaushan Script', cursive;
+  color: #f0e9dc;
+  text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.6);
+  max-width: 800px;
+  margin: 0 auto 2rem;
+  animation: fadeInUp 2s ease;
+}
+
+.boton_home_inicio_estilo {
+  font-family: 'Quicksand', sans-serif;
+  background-color: var(--color-dorado);
+  border: none;
+  transition: all 0.3s ease;
+  animation: shakeSlowButton 15s infinite ease-in-out;
+}
+
+.boton_home_inicio_estilo:hover {
+  background-color: #e2b585;
+  transform: scale(1.05);
+}
+
+/* Animaciones específicas */
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ================================
+   SECCIÓN EDUCACIÓN
+   ================================ */
+.card_inicio_estilo {
+  border-left: 5px solid var(--color-bosque);
+  transition: all 0.3s ease-in-out;
+}
+
+.card_inicio_estilo:hover {
+  transform: translateY(-5px);
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* ================================
+   SECCIÓN CULTURA
+   ================================ */
+.culture_inicio_estilo {
+  background-size: cover;
+  background-position: center;
+  background-blend-mode: multiply;
+  color: #fff;
+}
+
+/* ================================
+   FORMULARIO
+   ================================ */
+.form_inicio_estilo {
+  border: 1px solid var(--color-tierra);
+  background-color: #fff;
+}
+
+.form_inicio_estilo .form-control:focus {
+  border-color: var(--color-bosque);
+  box-shadow: 0 0 0 0.2rem rgba(62, 124, 23, 0.25);
+}
+
+/* ================================
+   BOTONES PERSONALIZADOS
+   ================================ */
+.btn-brown {
+  background-color: var(--color-tierra);
+  border: none;
+  color: #fff;
+}
+
+.btn-brown:hover {
+  background-color: #724a2f;
+}
+
+/* ================================
+   PIE DE PÁGINA
+   ================================ */
+.footer_inicio_estilo {
+  color: #fff;
+  text-align: center;
+  padding: 1rem 0;
+}
+
+/* ================================
+   DETALLES GENERALES
+   ================================ */
+h2, h3, h5 {
+  color: var(--color-tierra);
+}
+@keyframes shakeSlow {
+  0%   { transform: translate(0px, 0px) scale(1); }
+  20%  { transform: translate(1px, -2px) scale(1.01); }
+  40%  { transform: translate(-2px, 1px) scale(1.005); }
+  60%  { transform: translate(2px, 1px) scale(1.01); }
+  80%  { transform: translate(-1px, -1px) scale(1.008); }
+  100% { transform: translate(0px, 0px) scale(1); }
+}
+
+/* Versión reducida del movimiento para botones */
+@keyframes shakeSlowButton {
+  0%   { transform: translate(0, 0); }
+  25%  { transform: translate(1px, -1px); }
+  50%  { transform: translate(-1px, 1px); }
+  75%  { transform: translate(1px, 1px); }
+  100% { transform: translate(0, 0); }
+}
+
+/* Hover en botón: pausa suave del movimiento */
+.boton_home_inicio_estilo:hover {
+  background-color: #e2b585;
+  transform: scale(1.05);
+  animation-play-state: paused;
+}
+
+/* ================================
+   SECCIÓN EDUCACIÓN
+   ================================ */
+.education_inicio_estilo {
+  background-color: var(--color-claro);
+  position: relative;
+}
+
+.titulo_education_inicio_estilo {
+  color: var(--color-tierra);
+  font-family: 'Pacifico', cursive;
+  text-shadow: 1px 1px 6px rgba(0,0,0,0.2);
+  animation: fadeInDown 1.5s ease;
+}
+
+.imagen_education_inicio_estilo {
+  height: 220px;
+  object-fit: cover;
+  transition: transform 1.5s ease, filter 1s ease;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+/* Efecto suave al pasar sobre la tarjeta */
+.card_inicio_estilo {
+  border-left: 5px solid var(--color-bosque);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.card_inicio_estilo:hover {
+  transform: translateY(-6px);
+  box-shadow: 0px 6px 18px rgba(0,0,0,0.25);
+}
+
+.card_inicio_estilo:hover .imagen_education_inicio_estilo {
+  transform: scale(1.05);
+  filter: brightness(0.95);
+}
+
+.subtitulo_education_inicio_estilo {
+  color: var(--color-tierra);
+  font-family: 'Kaushan Script', cursive;
+}
+
+.texto_education_inicio_estilo {
+  font-family: 'Quicksand', sans-serif;
+  color: var(--color-oscuro);
+  animation: fadeInUp 1.5s ease;
+}
+
+/* ================================
+   SECCIÓN CULTURA
+   ================================ */
+.culture_inicio_estilo {
+  position: relative;
+  text-align: center;
+}
+
+.imagen_culture_inicio_estilo {
+  z-index: -1;
+  filter: brightness(55%) saturate(1.1);
+  animation: shakeSlow 25s infinite ease-in-out;
+}
+
+/* Contenido centrado */
+.contenido_culture_inicio_estilo {
+  position: relative;
+  z-index: 2;
+  padding: 4rem 1rem;
+}
+
+.titulo_culture_inicio_estilo {
+  font-family: 'Pacifico', cursive;
+  color: #fff;
+  text-shadow: 2px 2px 8px rgba(0,0,0,0.6);
+  animation: fadeInDown 1.5s ease;
+}
+
+.texto_culture_inicio_estilo {
+  max-width: 800px;
+  margin: 0 auto 2rem;
+  font-family: 'Kaushan Script', cursive;
+  color: #f0e9dc;
+  text-shadow: 1px 1px 5px rgba(0,0,0,0.6);
+  animation: fadeInUp 2s ease;
+}
+
+.boton_culture_inicio_estilo {
+  background-color: var(--color-dorado);
+  border: none;
+  transition: all 0.4s ease;
+  animation: shakeSlowButton 20s infinite ease-in-out;
+}
+
+.boton_culture_inicio_estilo:hover {
+  background-color: #e2b585;
+  transform: scale(1.08);
+  animation-play-state: paused;
+}
+
+/* Animación de “respiración” */
+@keyframes shakeSlow {
+  0% { transform: translate(0px, 0px) scale(1); }
+  25% { transform: translate(2px, -1px) scale(1.01); }
+  50% { transform: translate(-2px, 1px) scale(1.008); }
+  75% { transform: translate(1px, 1px) scale(1.005); }
+  100% { transform: translate(0px, 0px) scale(1); }
+}
+
+@keyframes shakeSlowButton {
+  0% { transform: translate(0px, 0px); }
+  25% { transform: translate(1px, -1px); }
+  50% { transform: translate(-1px, 1px); }
+  75% { transform: translate(1px, 1px); }
+  100% { transform: translate(0px, 0px); }
+}
+.culture_inicio_estilo {
+  font-family: 'Poppins', sans-serif;
+}
+
+.titulo_culture_inicio_estilo {
+  color: #3d2b1f;
+  font-size: 2.2rem;
+}
+
+.texto_intro_culture_inicio_estilo {
+  color: #5a4638;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.subtitulo_culture_inicio_estilo {
+  color: #7c4a26;
+  font-size: 1.6rem;
+}
+
+.texto_culture_inicio_estilo {
+  color: #444;
+  line-height: 1.8;
+  font-size: 1.05rem;
+}
+
+.sombra_inicio_estilo {
+  box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+  transition: transform 0.3s ease;
+}
+
+.sombra_inicio_estilo:hover {
+  transform: scale(1.03);
+}
+
+.boton_culture_inicio_estilo {
+  background-color: #dca63b;
+  color: #fff;
+  border-radius: 50px;
+  padding: 12px 30px;
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.boton_culture_inicio_estilo:hover {
+  background-color: #b9871c;
+  transform: scale(1.05);
+}
+
+.texto_motivacional_inicio_estilo {
+  color: #666;
+  font-size: 1rem;
+  margin-top: 20px;
+}

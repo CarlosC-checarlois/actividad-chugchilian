@@ -1,0 +1,132 @@
+.footer_inicio_estilo {
+  background-color: #3b2a1a;
+  font-family: 'Poppins', sans-serif;
+}
+
+.titulo_footer_inicio_estilo {
+  color: #f8e9d2;
+  font-size: 1.5rem;
+  letter-spacing: 0.5px;
+}
+
+.texto_footer_inicio_estilo {
+  color: #e7dcc2;
+  font-size: 0.95rem;
+  line-height: 1.7;
+}
+
+.frase_footer_inicio_estilo {
+  color: #d4c39a;
+  font-size: 0.9rem;
+  margin-top: 1rem;
+  border-left: 3px solid #d9a441;
+  padding-left: 0.75rem;
+}
+
+.subtitulo_footer_inicio_estilo {
+  color: #f3d593;
+  margin-bottom: 1rem;
+}
+
+.enlaces_footer_inicio_estilo li {
+  margin-bottom: 0.4rem;
+}
+
+.enlaces_footer_inicio_estilo a {
+  color: #e9dac1;
+  text-decoration: none;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.enlaces_footer_inicio_estilo a:hover {
+  color: #ffffff;
+  transform: translateX(3px);
+}
+
+.contacto_footer_inicio_estilo li {
+  margin-bottom: 0.5rem;
+  color: #e8d6b4;
+}
+
+.contacto_footer_inicio_estilo a {
+  color: #f5e6c8;
+  text-decoration: none;
+}
+
+.contacto_footer_inicio_estilo a:hover {
+  color: #ffffff;
+  text-decoration: underline;
+}
+
+.redes_footer_inicio_estilo a {
+  color: #d9a441;
+  font-size: 1.4rem;
+  transition: all 0.3s ease;
+}
+
+.redes_footer_inicio_estilo a:hover {
+  color: #ffffff;
+  transform: translateY(-3px);
+}
+
+.footer_divisor_inicio_estilo {
+  border: none;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.texto_copyright_inicio_estilo {
+  color: #d8cba6;
+  font-size: 0.9rem;
+  opacity: 0.9;
+}
+.header_inicio_estilo {
+  background: linear-gradient(90deg, #4a2f1f 0%, #6b4a2b 50%, #8c6239 100%);
+  font-family: 'Poppins', sans-serif;
+  transition: background 0.3s ease;
+  z-index: 1000;
+}
+
+.navbar-brand {
+  font-weight: 700;
+  font-size: 1.25rem;
+  color: #f8e9d2 !important;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.navbar-brand:hover {
+  color: #fff !important;
+}
+
+.nav-link {
+  color: #f2e6d0 !important;
+  margin-left: 1rem;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  transition: all 0.3s ease;
+}
+
+.nav-link:hover {
+  color: #ffd676 !important;
+  transform: translateY(-1px);
+}
+
+.nav-link.active {
+  color: #ffcc4d !important;
+  border-bottom: 2px solid #ffcc4d;
+  padding-bottom: 3px;
+}
+
+.navbar-toggler {
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.navbar-toggler-icon {
+  filter: invert(100%);
+}
+
+/* Sombra inferior sutil */
+.header_inicio_estilo.shadow {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}

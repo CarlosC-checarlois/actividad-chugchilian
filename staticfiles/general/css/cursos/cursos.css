@@ -1,0 +1,109 @@
+.cursos_inicio_estilo {
+  font-family: 'Poppins', sans-serif;
+  color: #3b2a1a;
+}
+
+.titulo_cursos_inicio_estilo {
+  color: #5c3b1a;
+  font-size: 2.2rem;
+}
+
+.texto_intro_cursos_inicio_estilo {
+  color: #6b4a2b;
+  max-width: 800px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+.curso_card_inicio_estilo {
+  background-color: #fff;
+  border-radius: 15px;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.curso_card_inicio_estilo:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+}
+
+.curso_imagen_inicio_estilo img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.curso_contenido_inicio_estilo {
+  padding: 1.2rem;
+  flex: 1;
+}
+
+.descripcion_curso_inicio_estilo {
+  font-size: 0.9rem;
+  color: #5a4632;
+  line-height: 1.5;
+  margin-bottom: 1rem;
+}
+
+.text-brown {
+  color: #5c3b1a !important;
+}
+
+.btn-outline-brown {
+  border: 2px solid #b38347;
+  color: #5c3b1a;
+  border-radius: 25px;
+  transition: all 0.3s ease;
+}
+
+.btn-outline-brown:hover {
+  background-color: #b38347;
+  color: #fff;
+}
+
+.frase_cursos_inicio_estilo {
+  background: linear-gradient(90deg, #5c3b1a, #8c6239);
+  border-radius: 15px;
+  padding: 1.3rem 2rem;
+  display: inline-block;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+.buscador_cursos_inicio_estilo {
+  background-color: #fffaf3;
+  border: 1px solid #e4d5c2;
+}
+
+.text-brown {
+  color: #5c3b1a !important;
+}
+
+.bg-brown {
+  background-color: #5c3b1a !important;
+}
+
+.buscador_cursos_inicio_estilo .form-control,
+.buscador_cursos_inicio_estilo .form-select {
+  border: 1px solid #c4a77d;
+  border-radius: 10px;
+  box-shadow: none;
+  transition: all 0.3s ease;
+}
+
+.buscador_cursos_inicio_estilo .form-control:focus,
+.buscador_cursos_inicio_estilo .form-select:focus {
+  border-color: #b38347;
+  box-shadow: 0 0 0 0.2rem rgba(179,131,71,0.25);
+}
+
+.input-group-text {
+  border-radius: 10px 0 0 10px;
+}
+
+@media (max-width: 768px) {
+  .buscador_cursos_inicio_estilo {
+    padding: 1.5rem;
+  }
+}

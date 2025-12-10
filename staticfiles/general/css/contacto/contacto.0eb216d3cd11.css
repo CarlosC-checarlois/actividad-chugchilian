@@ -1,0 +1,75 @@
+/* ==============================
+   NUEVO CONTACTO CHUGCHILLIAN
+============================== */
+
+/* Fondo general */
+.contacto_section_estilo {
+  font-family: 'Poppins', sans-serif;
+  min-height: 100vh;
+}
+
+/* Títulos */
+.titulo_contacto_estilo {
+  color: #5c3b1a;
+  font-weight: 700;
+}
+
+/* Tarjeta de información */
+.contacto_info_card {
+  background-color: #fffdf9;
+  border: 1px solid #e2caa2;
+  height: 100%;
+}
+
+.icon_social_estilo {
+  font-size: 1.5rem;
+  color: #5c3b1a;
+  transition: all 0.3s ease;
+}
+
+.icon_social_estilo:hover {
+  color: #d29544;
+  transform: scale(1.2);
+}
+
+/* Formulario */
+.contacto_form_card {
+  background-color: #ffffff;
+  border-left: 5px solid #d29544;
+}
+
+.input_contacto_estilo {
+  border-radius: 10px;
+  border: 1px solid #d3b78e;
+  padding: 0.75rem 1rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.input_contacto_estilo:focus {
+  border-color: #b87a3d;
+  box-shadow: 0 0 0 0.2rem rgba(184, 122, 61, 0.25);
+  outline: none;
+}
+
+/* Botón */
+.btn-brown {
+  background-color: #5c3b1a;
+  color: #fff;
+  border: none;
+  transition: all 0.3s ease;
+}
+
+.btn-brown:hover {
+  background-color: #784d25;
+  box-shadow: 0 4px 12px rgba(92, 59, 26, 0.3);
+}
+
+/* Responsivo */
+@media (max-width: 991px) {
+  .contacto_info_card {
+    text-align: center;
+  }
+  .contacto_form_card {
+    margin-top: 1rem;
+  }
+}

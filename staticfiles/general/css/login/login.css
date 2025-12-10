@@ -1,0 +1,67 @@
+/* =======================
+   ESTILO DE LOGIN CHUGCHILLIAN
+======================= */
+
+/* Fondo general */
+.login_inicio_estilo {
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Tarjeta */
+.login_card_estilo {
+  background-color: #ffffff;
+  border: 1px solid #e2caa2;
+  transition: all 0.3s ease;
+}
+
+.login_card_estilo:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(92, 59, 26, 0.15);
+}
+
+/* Inputs */
+.input_login_estilo {
+  border-radius: 10px;
+  border: 1px solid #d3b78e;
+  padding: 0.75rem 1rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.input_login_estilo:focus {
+  border-color: #b87a3d;
+  box-shadow: 0 0 0 0.2rem rgba(184, 122, 61, 0.25);
+  outline: none;
+}
+
+/* Botón principal */
+.btn-brown {
+  background-color: #5c3b1a;
+  color: #fff;
+  border: none;
+  transition: all 0.3s ease;
+}
+
+.btn-brown:hover {
+  background-color: #784d25;
+  box-shadow: 0 4px 12px rgba(92, 59, 26, 0.3);
+}
+
+/* Texto */
+.text-brown {
+  color: #5c3b1a;
+}
+
+.text-warning {
+  color: #d29544 !important;
+}
+
+.text-warning:hover {
+  color: #b67926 !important;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+  .login_card_estilo {
+    padding: 2rem 1.5rem;
+  }
+}
